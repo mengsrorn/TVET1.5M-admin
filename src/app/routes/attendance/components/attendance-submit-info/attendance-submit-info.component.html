@@ -9,6 +9,10 @@
       </h1>
 
       <div class="group-btn">
+        <button mat-flat-button color="print" (click)="onExportFile()">
+          <mat-icon>print</mat-icon>
+          {{'button.export_file' | translate}}
+        </button>
         <button
           color="accent"
           mat-flat-button

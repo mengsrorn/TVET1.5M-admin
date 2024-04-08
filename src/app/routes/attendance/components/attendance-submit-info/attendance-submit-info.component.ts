@@ -17,6 +17,7 @@ import { PermissionPipe } from 'src/app/shares/role/pipes/permission.pipe';
 import { environment } from 'src/environments/environment';
 import { AttendanceSubmitPaymentDialogComponent } from '../attendance-submit-payment-dialog/attendance-submit-payment-dialog.component';
 import { AttendanceSubmitViewInfoDialogComponent } from '../attendance-submit-view-info-dialog/attendance-submit-view-info-dialog.component';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-attendance-submit-info',
@@ -39,6 +40,8 @@ export class AttendanceSubmitInfoComponent {
 
   pStudent = pAdmin.attendanceSubmit;
   pPayment = pAdmin.scholarshipPayment;
+  att_sub_obj;
+  studentListsArrange  = [];
 
   tableDataSource = new MatTableDataSource<Student>();
   displayedColumns: string[] = ['position', 'name', 'poor_id', 'courses', 'attendance', 'status', 'action'];
@@ -76,6 +79,7 @@ export class AttendanceSubmitInfoComponent {
         next: res => {
           this.tableDataSource = new MatTableDataSource(res.students);
           this.data = res;
+          this.att_sub_obj = res;
         }
       });
   }
@@ -144,5 +148,38 @@ export class AttendanceSubmitInfoComponent {
         this.onLoad();
       }
     });
+  }
+
+  onExportFile():void{
+   
+    //Arrange data
+    for(let student of this.att_sub_obj.students){
+      
+      this.studentListsArrange.push(
+        {
+          id                  :student._id,
+          first_name          :student.first_name,
+          last_name           :student.last_name,
+          gender              :student.gender,
+          phone               :student.phone_number,
+          school              :this.att_sub_obj.schools.name,
+          course              :student.courses.apply_majors.name,
+          shift               :student.courses.shifts,
+          poor_id             :student.poor_id,
+          poverty_status      :student.type_poverty_status,
+          average_attendance  :student.average_attendance,
+          free                :student.courses.fee,
+          status              :student.scholarship_payments?.status == 1? 'បានអនុម័ត':student.scholarship_payments?.status == -3? 'បដិសេធ':''
+        }
+     );
+      
+    }
+
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.studentListsArrange);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    XLSX.writeFile(wb, 'file.xlsx');
   }
 }

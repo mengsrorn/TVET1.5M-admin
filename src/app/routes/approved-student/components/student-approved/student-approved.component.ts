@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Params } from '@angular/router';
+import { Params, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -74,7 +74,7 @@ export class StudentApprovedComponent {
 
   filterParams: Params = {};
 
-  constructor(public translate: TranslateService, private studentService: StudentService) {
+  constructor(public translate: TranslateService, private studentService: StudentService, private route:Router) {
     this.requestUrl = studentService.path + '/approved_list';
     this.filterData$ = studentService.filterDataStudent();
   }
@@ -116,5 +116,9 @@ export class StudentApprovedComponent {
     if (Object.keys(filterParams).length < 1) this.filterParams = [];
     else this.filterParams = filterParams;
     this.startSearch();
+  }
+
+  redirectIntern(){
+    window.open('https://school-admin.tvet.gov.kh/scholarship/student','_blank');
   }
 }
