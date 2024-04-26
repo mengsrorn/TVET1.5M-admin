@@ -262,7 +262,9 @@
     "course_end": "ថ្ងៃបញ្ចប់",
     "school": "គ្រឹះស្ថាន អ.ប.វ.",
     "type_leave_scholarship":"មូលហេតុចាកចេញ",
-    "type_scholarship_document": "ប្រភេទបណ្ណ"
+    "type_scholarship_document": "ប្រភេទបណ្ណ",
+    "phone_bank":"លេខទូរស័ព្ទកុងធនាគារ",
+    "phone_bank_invalid":"លេខទូរស័ព្ទកុងធនាគារមិនត្រឹមត្រូវ"
   },
   "button": {
     "create": "បង្កើត",

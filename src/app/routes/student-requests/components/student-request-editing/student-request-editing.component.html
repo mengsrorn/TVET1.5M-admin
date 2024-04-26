@@ -106,6 +106,13 @@
             <input matInput formControlName="phone_number" />
           </mat-form-field>
         </div>
+        <div [hidden]="!show_phone_bank">
+          <label>{{'form.phone_bank' | translate}}</label>
+          <mat-form-field appearance="outline">
+            <input matInput formControlName="phone_bank" type="text" minlength="9" maxlength="10" (keypress)="numberOnly($event)" #phone_bank required="{{show_phone_bank}}"/>
+            <mat-error>{{'form.phone_bank_invalid' | translate}}</mat-error>
+          </mat-form-field>
+        </div>
         <div>
           <label>{{'form.id_card_number' | translate}}</label>
           <mat-form-field appearance="outline">

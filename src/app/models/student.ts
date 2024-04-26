@@ -14,6 +14,7 @@ export interface Student {
   last_name?: string;
   gender?: string;
   phone_number?: string;
+  phone_bank?:string;
   profile_image?: string;
   poor_id?: string;
   selected?: boolean;

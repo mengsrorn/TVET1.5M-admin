@@ -48,6 +48,7 @@ export class StudentRequestEditingComponent {
   student: any;
   address: Address;
   placeOfBirth: Address;
+  show_phone_bank = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -80,6 +81,7 @@ export class StudentRequestEditingComponent {
       date_of_birth: [null, [Validators.required, datePickerValidator()]],
       gender: [null, Validators.required],
       phone_number: [null],
+      phone_bank:[null],
       ethnicity: [null],
       nationality: [null],
       type_scholarship_documents: [null],
@@ -167,6 +169,7 @@ export class StudentRequestEditingComponent {
           date_of_birth: res.date_of_birth,
           gender: res.gender,
           phone_number: res.phone_number,
+          phone_bank:res.phone_bank,
           id_card_number: res.id_card_number,
           place_of_birth: {
             city_provinces: res.place_of_birth?.city_provinces?._id,
@@ -202,6 +205,11 @@ export class StudentRequestEditingComponent {
 
         this.address = res.address;
         this.placeOfBirth = res.place_of_birth;
+
+        //show phone bank if poor student
+        if( res?.poor_id ) {
+          this.show_phone_bank = true;
+        }
       });
   }
 
@@ -295,5 +303,14 @@ export class StudentRequestEditingComponent {
 
   trackByFn(index: number, item: any): void {
     return item?._id ?? index ?? item?.name ?? item;
+  }
+
+  numberOnly(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+
   }
 }
