@@ -54,8 +54,6 @@ export class StudentApprovedEditingComponent implements OnInit {
 
   uuidPerm = pAdmin.adminAction;
 
-  show_phone_bank = true;
-
   constructor(
     private formBuilder: FormBuilder,
     public router: Router,
@@ -331,14 +329,5 @@ export class StudentApprovedEditingComponent implements OnInit {
 
   trackByFn(index: number, item: any): void {
     return item?._id ?? index ?? item?.name ?? item;
-  }
-
-  numberOnly(event): boolean {
-    const charCode = (event.which) ? event.which : event.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-      return false;
-    }
-    return true;
-
   }
 }
