@@ -10,7 +10,7 @@ import { passwordMatcher } from 'src/app/helpers/password-matcher';
 import { pAdmin } from 'src/app/helpers/permission';
 import { DESTROYER$ } from 'src/app/helpers/unsubscribe';
 import { Address, Nationality } from 'src/app/models/address';
-import { RoleId } from 'src/app/models/enums/enumConstant';
+import EnumConstant,{ RoleId } from 'src/app/models/enums/enumConstant';
 import { ImageList } from 'src/app/models/file';
 import { Student } from 'src/app/models/student';
 import { TypeEnum } from 'src/app/models/type_enum';
@@ -51,6 +51,7 @@ export class StudentApprovedEditingComponent implements OnInit {
   student: any;
   address: Address;
   placeOfBirth: Address;
+  show_phone_bank = false;
 
   uuidPerm = pAdmin.adminAction;
 
@@ -89,6 +90,7 @@ export class StudentApprovedEditingComponent implements OnInit {
         gender: [null, Validators.required],
         roles: [RoleId.USER, Validators.required],
         phone_number: [null],
+        phone_bank: [null],
         ethnicity: [null],
         nationality: [null],
         id_card_number: [null],
@@ -194,7 +196,8 @@ export class StudentApprovedEditingComponent implements OnInit {
           last_name_en: res.last_name_en,
           date_of_birth: res.date_of_birth,
           gender: res.gender,
-          phone_number: res.phone_number,
+          phone_number: res?.phone_number,
+          phone_bank: res.phone_bank,
           id_card_number: res.id_card_number,
           place_of_birth: {
             city_provinces: res.place_of_birth?.city_provinces?._id,
@@ -231,6 +234,11 @@ export class StudentApprovedEditingComponent implements OnInit {
 
         this.address = res.address;
         this.placeOfBirth = res.place_of_birth;
+
+        //show phone bank if poor student and status -3,3
+        if( res?.poor_id && (res?.poor_status === EnumConstant.REJECT || res?.poor_status === EnumConstant.REQUESTING )) {
+          this.show_phone_bank = true;
+        }
       });
   }
 
@@ -329,5 +337,14 @@ export class StudentApprovedEditingComponent implements OnInit {
 
   trackByFn(index: number, item: any): void {
     return item?._id ?? index ?? item?.name ?? item;
+  }
+
+  numberOnly(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+
   }
 }

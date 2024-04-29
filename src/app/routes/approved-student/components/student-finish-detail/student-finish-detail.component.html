@@ -52,6 +52,10 @@
       <label>{{'form.phone' | translate}}</label>
       <div class="value">{{student?.phone_number || '--/--'}}</div>
     </div>
+    <div *ngIf="student?.phone_bank" class="grid gap-x-16 col-2">
+      <label>{{'form.phone_bank' | translate}}</label>
+      <div class="value">{{student?.phone_bank || '--/--'}}</div>
+    </div>
     <div class="grid gap-x-16 col-2 ">
       <label>{{'form.id_card_number' | translate}}</label>
       <div class="value">{{student?.id_card_number || '--/--'}}</div>
@@ -148,11 +152,15 @@
     </div>
     <div class="grid gap-x-16 col-2 border-none">
       <label>{{'major.title' | translate}}</label>
-      <div class="value">{{student?.apply_majors | translateAPI: translate.currentLang}}</div>
+      <div class="value"><a href="/course/info/{{student?.courses?._id}}"> {{student?.apply_majors | translateAPI: translate.currentLang}}</a></div>
     </div>
     <div class="grid gap-x-16 col-2 border-none">
       <label>{{'form.course_code' | translate}}</label>
       <div class="value">{{student?.courses?.code || '--//--'}}</div>
+    </div>
+    <div class="grid gap-x-16 col-2 border-none">
+      <label>{{'form.shift' | translate}}</label>
+      <div class="value">{{student?.shifts?.name || '--//--'}}</div>
     </div>
   </div>
 </div>
