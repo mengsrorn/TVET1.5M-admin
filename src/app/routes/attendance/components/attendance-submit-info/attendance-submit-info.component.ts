@@ -18,6 +18,7 @@ import { environment } from 'src/environments/environment';
 import { AttendanceSubmitPaymentDialogComponent } from '../attendance-submit-payment-dialog/attendance-submit-payment-dialog.component';
 import { AttendanceSubmitViewInfoDialogComponent } from '../attendance-submit-view-info-dialog/attendance-submit-view-info-dialog.component';
 import * as XLSX from 'xlsx';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-attendance-submit-info',
@@ -155,21 +156,25 @@ export class AttendanceSubmitInfoComponent {
    
     //Arrange data
     for(let student of this.att_sub_obj.students){
-      
+     
       this.studentListsArrange.push(
         {
           id                  :student._id,
-          first_name          :student.first_name,
           last_name           :student.last_name,
+          first_name          :student.first_name,
+          last_name_en        :student.last_name_en,
+          first_name_en       :student.first_name_en,
           gender              :student.gender,
+          date_of_birth       :moment.utc(student.date_of_birth).local().format('DD/MM/YYYY'),
           phone               :student.phone_number,
+          nid                 :student?.id_card_number,
           school              :this.att_sub_obj.schools.name,
           course              :student.courses.apply_majors.name,
-          shift               :student.courses.shifts,
-          poor_id             :student.poor_id,
-          poverty_status      :student.type_poverty_status,
+          shift               :student.courses.shifts.name,
+          poor_id             :student?.poor_id,
+          poverty_status      :student?.type_poverty_status, 
           average_attendance  :student.average_attendance,
-          free                :student.courses.fee,
+          free                :student.courses?.fee,
           status              :student.scholarship_payments?.status == 1? 'បានអនុម័ត':student.scholarship_payments?.status == -3? 'បដិសេធ':''
         }
      );
