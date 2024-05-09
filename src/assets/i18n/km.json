@@ -393,7 +393,8 @@
     "apply_majors": "ជំនាញ",
     "courses": "វគ្គសិក្សា",
     "scholarship_status": "ស្ថានភាព",
-    "shifts": "វេន"
+    "shifts": "វេន",
+    "type_poverty_status": "ស្ថានភាពក្រីក្រ"
   },
   "enum_status": {
     "Published": "កំពុងប្រើប្រាស់",
