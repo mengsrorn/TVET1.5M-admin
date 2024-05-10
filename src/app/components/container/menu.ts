@@ -178,6 +178,13 @@ export const MENU: MenuItem[] = [
         permissions: [pAdmin.report.studentList]
       },
       {
+        title: 'វគ្គសិក្សា',
+        route: '/report/course',
+        icon: '',
+        svgIcon: 'pie-chart',
+        permissions: [pAdmin.report.adminDataApprovedCount]
+      },
+      {
         title: 'ចំនួនចុះឈ្មោះតាមគ្រឹះស្ថាន',
         route: '/report/enrollment',
         icon: '',

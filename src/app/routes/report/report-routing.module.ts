@@ -10,6 +10,7 @@ import { ReportEnrollmentMajorComponent } from './components/report-enrollment-m
 import { ReportEnrollmentComponent } from './components/report-enrollment/report-enrollment.component';
 import { ReportStatusByMajorComponent } from './components/report-status-by-major/report-status-by-major.component';
 import { ReportStatusBySchoolComponent } from './components/report-status-by-school/report-status-by-school.component';
+import { ReportCourseComponent } from './components/report-course/report-course.component';
 import { StudentRequestsReportComponent } from './components/student-requests/student-requests-report/student-requests-report.component';
 
 const routes: Routes = [
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'student-requests',
     component: StudentRequestsReportComponent
+  },
+  {
+    path: 'course',
+    component: ReportCourseComponent
   },
   {
     path: 'attendance',
