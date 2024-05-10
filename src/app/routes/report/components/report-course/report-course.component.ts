@@ -22,6 +22,8 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./report-course.component.scss']
 })
 export class ReportCourseComponent {
+  date: string = new Date().toISOString();
+
   pCourse = pAdmin.course;
   formDate = inject(FormBuilder).group({
     start: [null, Validators.required],
@@ -69,21 +71,22 @@ export class ReportCourseComponent {
       custom: true
     },
     {
-      name: 'table.total_submit_student_count',
+      name: 'table.total_register',
       dataKey: 'total_student_count',
       custom: true
     },
     {
-      name: 'table.approve_to_study',
+      name: 'table.total_approve',
       dataKey: 'student_active_count',
       custom: true
     },
     {
-      name: 'table.open_session',
-      dataKey: ''
+      name: 'table.class_status',
+      dataKey: 'class_status',
+      custom: true
     }
   ];
-
+  
   private readonly destroyer$ = DESTROYER$();
 
   tableDataSource: BaseDatatable<Course>;
@@ -91,7 +94,7 @@ export class ReportCourseComponent {
   // filterParams: Params = {};
 
   constructor(readonly loadingService: LoadingService, public courseService: CourseService) {}
-
+  
   onLoad(pagination?): void {
     this.loadingService.setLoading('page', true);
     let startDate: string = `${new Date(this.formDate.value.start).toLocaleDateString('en-ZA')} ${new Date(

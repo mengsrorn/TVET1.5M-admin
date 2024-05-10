@@ -111,6 +111,18 @@
       <ng-template [appZippy]="'student_active_count'" let-element>
         {{ element?.student_active_count ||  0}}
       </ng-template>
+      <ng-template [appZippy]="'class_status'" let-element>
+        <ng-container *ngIf="element?.course_start <= date && element?.course_end > date">
+          <span class="status-fill rounded-sm">បើក</span>
+        </ng-container>
+        <ng-container *ngIf="date > element?.course_end && date > element?.course_start">
+          <span class="status-fill rounded-sm">បិទ</span>
+        </ng-container>
+        <ng-container *ngIf="date < element?.course_start && date < element?.course_end">
+          <span class="status-fill rounded-sm">មិនទាន់បើក</span>
+        </ng-container>
+
+      </ng-template>
     </custom-table>
     <ng-template #emptyReport>
       <div class="report-empty">
