@@ -43,7 +43,13 @@
         </button>
       </section>
       <div>
-        <button class="fix-btn-print" mat-flat-button color="print" (click)="onExportFile()">
+        <button
+          class="fix-btn-print"
+          mat-flat-button
+          color="print"
+          (click)="onExportFile()"
+          [disabled]="!!!tableDataSource?.list?.length"
+        >
           <mat-icon>print</mat-icon>
           {{'button.export_file' | translate}}
         </button>
@@ -113,15 +119,14 @@
       </ng-template>
       <ng-template [appZippy]="'class_status'" let-element>
         <ng-container *ngIf="element?.course_start <= date && element?.course_end > date">
-          <span class="status-fill rounded-sm">បើក</span>
+          <span class="status-fill rounded-sm">{{'enum_status.Active' | translate }}</span>
         </ng-container>
         <ng-container *ngIf="date > element?.course_end && date > element?.course_start">
-          <span class="status-fill rounded-sm">បិទ</span>
+          <span class="status-fill rounded-sm">{{'enum_status.Inactive' | translate }}</span>
         </ng-container>
         <ng-container *ngIf="date < element?.course_start && date < element?.course_end">
-          <span class="status-fill rounded-sm">មិនទាន់បើក</span>
+          <span class="status-fill rounded-sm">{{'enum_status.Pending' | translate }}</span>
         </ng-container>
-
       </ng-template>
     </custom-table>
     <ng-template #emptyReport>

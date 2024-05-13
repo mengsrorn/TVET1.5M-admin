@@ -14,6 +14,7 @@ import { LoadingService } from 'src/app/services/loading.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { Pagination } from 'src/app/shares/pagination/pagination';
 import { SnackbarComponent } from 'src/app/shares/snackbar/components/snackbar/snackbar.component';
+import { log } from 'util';
 import * as XLSX from 'xlsx';
 
 @Component({
@@ -86,15 +87,13 @@ export class ReportCourseComponent {
       custom: true
     }
   ];
-  
+
   private readonly destroyer$ = DESTROYER$();
 
   tableDataSource: BaseDatatable<Course>;
 
-  // filterParams: Params = {};
-
   constructor(readonly loadingService: LoadingService, public courseService: CourseService) {}
-  
+
   onLoad(pagination?): void {
     this.loadingService.setLoading('page', true);
     let startDate: string = `${new Date(this.formDate.value.start).toLocaleDateString('en-ZA')} ${new Date(
@@ -108,7 +107,6 @@ export class ReportCourseComponent {
         this.tableDataSource = res;
         takeUntil(this.destroyer$);
         this.loadingService.setLoading('page', false);
-        console.log(res);
       }
     });
   }
@@ -120,37 +118,54 @@ export class ReportCourseComponent {
 
     // Get date components
     const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const year = date.getFullYear();
 
     // Return formatted date string (example: "DD-MM-YYYY")
     return `${day}-${month}-${year}`;
   }
   onExportFile(): void {
-    let dataExportColumn = [];
-    for (let course of this?.tableDataSource?.list) {
-      dataExportColumn.push({
-        id: course?._id,
-        code: course?.code,
-        major: course?.apply_majors?.name,
-        registerStartDate: `${this.formatDate(new Date(course.registation_start))}
-        `,
-        registerEndDate: `${this.formatDate(new Date(course.registation_end))}`,
-        course_start_date: this.formatDate(new Date(course?.course_start)),
-        course_end_date: this.formatDate(new Date(course?.course_end)),
-        shift: course?.shifts.name,
-        school: course?.schools?.name,
-        total_approve: course['student_active_count'],
-        total_apply: course['total_submit_student_count']
-      });
-    }
+    // Set limit to 0 to fetch all data
+    const pagination = { limit: 0 };
+    const startDate: string = `${new Date(this.formDate.value.start).toLocaleDateString('en-ZA')} ${new Date(
+      this.formDate.value.start
+    ).toLocaleTimeString('en-US', { hour12: false })}`;
+    const endDate: string = `${new Date(this.formDate.value.end).toLocaleDateString('en-ZA')} ${new Date(
+      this.formDate.value.end
+    ).toLocaleTimeString('en-US', { hour12: false })}`;
 
-    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(dataExportColumn);
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Course-Table-Sheet');
-
-    // Save to file
-    XLSX.writeFile(wb, 'Course-table.xlsx');
+    this.courseService.getDataCourseByDateRange({ ...pagination, start_date: startDate, end_date: endDate }).subscribe({
+      next: res => {
+        let dataExportColumn = [];
+        for (let course of res.list) {
+          const currentDate = new Date();
+          dataExportColumn.push({
+            id: course._id,
+            code: course.code,
+            major: course.apply_majors.name,
+            registerStartDate: this.formatDate(new Date(course.registation_start)),
+            registerEndDate: this.formatDate(new Date(course.registation_end)),
+            course_start_date: this.formatDate(new Date(course.course_start)),
+            course_end_date: this.formatDate(new Date(course.course_end)),
+            shift: course.shifts.name,
+            school: course?.schools?.name,
+            total_apply: course['total_submit_student_count'],
+            total_approve: course['student_active_count'],
+            class_status:
+              currentDate >= new Date(course.course_start) && currentDate < new Date(course.course_end)
+                ? 'ដំណើរការ'
+                : currentDate > new Date(course.course_end) && currentDate > new Date(course.course_start)
+                ? 'បានបិទ'
+                : 'រងចាំពិនិត្យ'
+          });
+        }
+        const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(dataExportColumn);
+        const wb: XLSX.WorkBook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Course-Table-Sheet');
+        // Save to file
+        XLSX.writeFile(wb, 'Course-table.xlsx');
+      }
+    });
   }
 
   onInputDate(): void {
