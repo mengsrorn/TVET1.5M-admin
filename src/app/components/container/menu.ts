@@ -239,6 +239,13 @@ export const MENU: MenuItem[] = [
         icon: '',
         svgIcon: 'pie-chart',
         permissions: [pAdmin.report.adminDataApprovedCount]
+      },
+      {
+        title: 'របាយការណ៍ប្រចាំសប្តាហ៍',
+        route: '/report/weekly-report',
+        icon: '',
+        svgIcon: 'pie-chart',
+        permissions: [pAdmin.report.adminDataApprovedCount]
       }
     ],
     permissions: []

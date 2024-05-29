@@ -33,6 +33,7 @@ import { ExportAsExcelApproveStudentsDirective } from './components/directives/e
 import { ExportAsPdfApproveStudentsDirective } from './components/directives/export-as-pdf-approve-students.directive';
 import { RequestApprovedDirective } from './components/directives/request-approved.directive';
 import { StudentDataReportPipe } from './components/pipes/student-data-report.pipe';
+import { StudentWeeklyDataReportPipe } from './components/pipes/student-weekly-data-report.pipe';
 import { ReportApprovalComponent } from './components/report-approval/report-approval.component';
 import { ReportEnrollmentComponent } from './components/report-enrollment/report-enrollment.component';
 import { StudentRequestsByMajorComponent } from './components/student-requests/student-requests-by-major/student-requests-by-major.component';
@@ -47,6 +48,8 @@ import { ReportStatusBySchoolComponent } from './components/report-status-by-sch
 import { ReportStatusByMajorComponent } from './components/report-status-by-major/report-status-by-major.component';
 import { StatusPipeModule } from 'src/app/shares/status-pipe/status-pipe.module';
 import { ReportCourseComponent } from './components/report-course/report-course.component';
+import { ReportWeeklyComponent } from './components/report-weekly/report-weekly.component';
+import { PaginationModule } from '../../shares/pagination/pagination.module';
 @NgModule({
   declarations: [
     StudentRequestsReportComponent,
@@ -60,14 +63,17 @@ import { ReportCourseComponent } from './components/report-course/report-course.
     ReportEnrollmentComponent,
     ReportApprovalComponent,
     StudentDataReportPipe,
+    StudentWeeklyDataReportPipe,
     ReportEnrollmentMajorComponent,
     ReportApprovalMajorComponent,
     ReportEnrollmentByAllComponent,
     ReportApprovalByAllComponent,
     ReportStatusBySchoolComponent,
     ReportStatusByMajorComponent,
-    ReportCourseComponent
+    ReportCourseComponent,
+    ReportWeeklyComponent
   ],
+  providers: [Base64ImagePipe, KhmerDatePipe],
   imports: [
     CommonModule,
     ReportRoutingModule,
@@ -93,8 +99,8 @@ import { ReportCourseComponent } from './components/report-course/report-course.
     MatProgressBarModule,
     MatTableModule,
     EmptyModule,
-    StatusPipeModule
-  ],
-  providers: [Base64ImagePipe, KhmerDatePipe]
+    StatusPipeModule,
+    PaginationModule
+  ]
 })
 export class ReportModule {}
