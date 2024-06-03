@@ -52,7 +52,8 @@ export class CreateShiftComponent {
     this.form = this.fb.group({
       name: ['', Validators.required],
       name_en: [''],
-      code: ['']
+      code: [''],
+      fee: ['']
     });
   }
 
@@ -72,7 +73,8 @@ export class CreateShiftComponent {
     this.form.patchValue({
       name: item?.name,
       name_en: item?.name_en,
-      code: item?.code
+      code: item?.code,
+      fee: item?.fee
     });
   }
 
@@ -134,7 +136,7 @@ export class CreateShiftComponent {
 
   onSubmit(): void {
     if (!this.form.valid) return;
-    
+
     const formValue = this.form.value;
     const data = {
       ...formValue

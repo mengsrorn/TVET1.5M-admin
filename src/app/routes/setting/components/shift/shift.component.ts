@@ -42,6 +42,11 @@ export class ShiftComponent {
       custom: true
     },
     {
+      name: 'table.fee',
+      dataKey: 'fee',
+      custom: true
+    },
+    {
       name: 'table.action',
       dataKey: 'action',
       custom: true

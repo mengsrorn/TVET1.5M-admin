@@ -5,4 +5,5 @@ export interface Shift {
   code?: string;
   status?: number;
   shift_times?: any;
+  fee?: number;
 }

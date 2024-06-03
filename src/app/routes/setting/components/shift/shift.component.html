@@ -27,6 +27,10 @@
                 {{ element.code || '--/--' }}
             </ng-template>
 
+            <ng-template [appZippy]="'fee'" let-element>
+                {{ element.fee || '--/--' }}
+            </ng-template>
+
             <ng-template [appZippy]="'action'" let-element>
                 <app-action
                     [useRouter]="{view: {routerLink: 'info/' + element._id}, edit: {routerLink: 'edit/' + element._id}}"

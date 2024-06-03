@@ -35,6 +35,12 @@
               <input matInput formControlName="code" />
             </mat-form-field>
           </div>
+          <div>
+            <label [ngClass]="{'required': form.controls.fee?.invalid}">{{ 'form.fee' | translate }}</label>
+            <mat-form-field appearance="outline" class="input">
+              <input matInput formControlName="fee" required="true"/>
+            </mat-form-field>
+          </div>
           
         </div>
       </div>

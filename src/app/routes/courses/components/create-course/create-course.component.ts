@@ -107,6 +107,12 @@ export class CreateCourseComponent {
       this.form.get('course_start').enable();
       this.form.get('course_end').enable();
     });
+    this.form.get('shifts').valueChanges.subscribe(shiftId => {
+      const selectedShift = this.shifts.find(shift => shift._id === shiftId);
+      if (selectedShift) {
+        this.form.get('fee').setValue(selectedShift.fee);
+      }
+    });
   }
 
   getMajor(): void {
@@ -136,7 +142,7 @@ export class CreateCourseComponent {
     this.form.patchValue({
       code: item?.code,
       duration: item.duration,
-      fee: item.fee,
+      fee: item?.fee,
       requirement: item?.requirement,
       student_amount: item?.student_amount,
       registation_start: item?.registation_start,
@@ -219,6 +225,7 @@ export class CreateCourseComponent {
     // this.isLoading = true;
 
     const formValue = this.form.value;
+
     const data = {
       ...formValue,
       registation_start: this.formattedDate(formValue.registation_start),
