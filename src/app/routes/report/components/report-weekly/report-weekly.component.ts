@@ -125,14 +125,11 @@ export class ReportWeeklyComponent {
       });
   }
   onExportFile(): void {
-    const pagination = (this.params.limit = 0);
-
     const table = document.getElementById('table')?.cloneNode(true) as HTMLElement;
 
     //add title in excel file
-    let element = document.createElement('tr');
-    table.getElementsByTagName('thead')[0].prepend(element);
-
+    // let element = document.createElement('tr');
+    // table.getElementsByTagName('thead')[0].prepend(element);
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(table);
 
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
@@ -147,13 +144,21 @@ export class ReportWeeklyComponent {
 
     //remove th element -> class = display-none from table element
     //TODO: custom view when export to excel
-    let thRemove = table
+    let thRemove1 = table
       .getElementsByTagName('thead')[0]
       ?.getElementsByTagName('tr')[1]
       ?.getElementsByClassName('display-none');
 
-    for (let i = thRemove?.length - 1; i >= 0; i--) {
-      thRemove[i]?.remove();
+    for (let i = thRemove1?.length - 1; i >= 0; i--) {
+      thRemove1[i]?.remove();
+    }
+    let thRemove2 = table
+      .getElementsByTagName('thead')[0]
+      ?.getElementsByTagName('tr')[2]
+      ?.getElementsByClassName('display-none');
+
+    for (let i = thRemove2?.length - 1; i >= 0; i--) {
+      thRemove2[i]?.remove();
     }
 
     //remove td element -> class = display-none from table element
