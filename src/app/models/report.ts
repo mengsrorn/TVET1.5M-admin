@@ -41,6 +41,8 @@ export interface StudentDataReport {
   _id: number;
   total_student: number;
   total_female: number;
+  total_course_finish?: number;
+  total_new_course_finish?: number;
   name?: string;
   name_en?: string;
 }
@@ -65,3 +67,4 @@ export interface StudentWeeklyDataReport {
   name?: string;
   name_en?: string;
 }
+

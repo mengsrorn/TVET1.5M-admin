@@ -62,7 +62,7 @@ export class ReportStatusByMajorComponent {
     ).toLocaleTimeString('en-US', { hour12: false })}`;
 
     this.reportService
-      .getStatusByMajor({ ...this.filterParams, end_date: endDate }) //, start_date: startDate, 
+      .getStatusByMajor({ ...this.filterParams, end_date: endDate }) //, start_date: startDate,
       .pipe(
         map(map => {
           if (map?.report_data?.length > 0) {
@@ -98,6 +98,26 @@ export class ReportStatusByMajorComponent {
 
             //mapping second header
             for (let index = 0; index < map.header_columns?.length; index++) {
+              if (index === 10) {
+                for (let i = 0; i < 1; i++) {
+                  let result = map.header_columns[index];
+                  this.exportColumn.push('th_col' + index + i);
+                  this.dynamicColumn.push({
+                    name: 'th_col' + index + i,
+                    _id: result._id
+                  });
+                }
+              }
+              if (index === 12) {
+                for (let i = 0; i < 1; i++) {
+                  let result = map.header_columns[index];
+                  this.exportColumn.push('th_col' + index + i);
+                  this.dynamicColumn.push({
+                    name: 'th_col' + index + i,
+                    _id: result._id
+                  });
+                }
+              }
               for (let j = 0; j < 2; j++) {
                 let result = map.header_columns[index];
                 this.exportColumn.push('th' + index + j);
@@ -165,7 +185,8 @@ export class ReportStatusByMajorComponent {
 
   onInputDate(): void {
     let data = this.form.value;
-    if (!data.end) { // !!data.start &&  && new Date(data.start).getTime() > new Date(data.end).getTime()
+    if (!data.end) {
+      // !!data.start &&  && new Date(data.start).getTime() > new Date(data.end).getTime()
       this.form.controls.end.markAsTouched();
       this.form.controls.end.setErrors({ 'minDate': true });
     } else if (!!this.form.controls.end.value && this.form.controls.end.invalid) this.form.controls.end.setErrors(null);
@@ -181,7 +202,7 @@ export class ReportStatusByMajorComponent {
     return item?._id ?? index ?? item?.name ?? item;
   }
 
-    onExportFile(): void {
+  onExportFile(): void {
     const table = document.getElementById('table')?.cloneNode(true) as HTMLElement;
 
     //add title in excel file

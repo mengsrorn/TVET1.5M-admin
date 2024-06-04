@@ -62,7 +62,7 @@ export class ReportStatusBySchoolComponent {
     ).toLocaleTimeString('en-US', { hour12: false })}`;
 
     this.reportService
-      .getStatusBySchool({ ...this.filterParams, end_date: endDate }) //, start_date: startDate, 
+      .getStatusBySchool({ ...this.filterParams, end_date: endDate }) //, start_date: startDate,
       .pipe(
         map(map => {
           if (map?.report_data?.length > 0) {
@@ -98,6 +98,26 @@ export class ReportStatusBySchoolComponent {
 
             //mapping second header
             for (let index = 0; index < map.header_columns?.length; index++) {
+              if (index === 10) {
+                for (let i = 0; i < 1; i++) {
+                  let result = map.header_columns[index];
+                  this.exportColumn.push('th_col' + index + i);
+                  this.dynamicColumn.push({
+                    name: 'th_col' + index + i,
+                    _id: result._id
+                  });
+                }
+              }
+              if (index === 12) {
+                for (let i = 0; i < 1; i++) {
+                  let result = map.header_columns[index];
+                  this.exportColumn.push('th_col' + index + i);
+                  this.dynamicColumn.push({
+                    name: 'th_col' + index + i,
+                    _id: result._id
+                  });
+                }
+              }
               for (let j = 0; j < 2; j++) {
                 let result = map.header_columns[index];
                 this.exportColumn.push('th' + index + j);
@@ -117,6 +137,7 @@ export class ReportStatusBySchoolComponent {
           this.data = res;
           this.tableDataSource = new MatTableDataSource(data);
           this.displayedColumns = [...this.baseColumn, ...this.exportColumn];
+
           this.loadingService.setLoading('page', false);
 
           setTimeout(() => {
@@ -165,7 +186,8 @@ export class ReportStatusBySchoolComponent {
 
   onInputDate(): void {
     let data = this.form.value;
-    if (!data.end) { ​//!!data.start &&​ && new Date(data.start).getTime() > new Date(data.end).getTime()
+    if (!data.end) {
+      //!!data.start &&​ && new Date(data.start).getTime() > new Date(data.end).getTime()
       this.form.controls.end.markAsTouched();
       this.form.controls.end.setErrors({ 'minDate': true });
     } else if (!!this.form.controls.end.value && this.form.controls.end.invalid) this.form.controls.end.setErrors(null);
@@ -181,7 +203,7 @@ export class ReportStatusBySchoolComponent {
     return item?._id ?? index ?? item?.name ?? item;
   }
 
-    onExportFile(): void {
+  onExportFile(): void {
     const table = document.getElementById('table')?.cloneNode(true) as HTMLElement;
 
     //add title in excel file
@@ -194,7 +216,7 @@ export class ReportStatusBySchoolComponent {
     let endDate: string = `${new Date(this.form.value.end).toLocaleDateString('en-ZA')}, ${new Date(
       this.form.value.end
     ).toLocaleTimeString('en-US', { hour12: false })}`;
-    const title = `ស្ថានភាពសិក្សាតាមគ្រឹះស្ថានត្រឹមថ្ងៃ ${endDate}`; //ចាប់ពី ${startDate} 
+    const title = `ស្ថានភាពសិក្សាតាមគ្រឹះស្ថានត្រឹមថ្ងៃ ${endDate}`; //ចាប់ពី ${startDate}
 
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(table);
 
