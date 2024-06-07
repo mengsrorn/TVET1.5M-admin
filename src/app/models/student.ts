@@ -52,6 +52,9 @@ export interface StudentRequests extends Student {
   apply_majors?: Major;
   schools?: School;
   shifts?: Shift;
+  courses_start?: Date;
+  courses_end?: Date;
+  courses_code?: string;
 }
 
 export interface ApprovedStudent extends Student {

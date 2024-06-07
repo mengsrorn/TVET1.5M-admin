@@ -18,6 +18,18 @@ const EXCEL_EXTENSION = '.xlsx';
   providers: [FullNamePipe, TranslateApiPipe]
 })
 export class ExportAsExcelApproveStudentsDirective extends Unsubscribe {
+  enumStatus = [
+    'បានបិទ',
+    'កំពុងសិក្សា',
+    'មិនទាន់ស្នើ',
+    'ស្នើសុំ',
+    'រង់ចាំសិក្សា',
+    'បន្តការសិក្សា',
+    '',
+    '',
+    'បញ្ចប់ការសិក្សា',
+    'បានចាកចេញ'
+  ];
   @Input('appExportAsExcelApproveStudents') data: { params: Params; filterParams: Params };
 
   constructor(
@@ -94,7 +106,12 @@ export class ExportAsExcelApproveStudentsDirective extends Unsubscribe {
         [this.translateService.instant('table.poor_id')]: element?.poor_id,
         [this.translateService.instant('table.type_poverty_status')]: element?.type_poverty_status,
         [this.translateService.instant('form.id_card_number')]: element?.id_card_number,
-        [this.translateService.instant('attendance.name')]: element?.average_attendance
+        [this.translateService.instant('attendance.name')]: element?.average_attendance,
+        [this.translateService.instant('table.course_start_date')]: new Date(element?.courses_start),
+        [this.translateService.instant('table.course_end_date')]: new Date(element?.courses_end),
+        [this.translateService.instant('table.course_code')]: element?.courses_code,
+        [this.translateService.instant('table.status')]:
+          this.enumStatus[element?.scholarship_status === -3 ? 'បដិសេធ' : element?.scholarship_status]
       };
       result.push(item);
     }

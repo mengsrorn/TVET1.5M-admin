@@ -122,6 +122,18 @@
         <div class="el-responsive">{{ element?.average_attendance || '--/--'}}</div>
       </ng-template>
 
+      <ng-template [appZippy]="'course_start'" let-element>
+        <div class="el-responsive">{{ element?.courses_start | date: 'dd/MM/yyyy' || '--/--'}}</div>
+      </ng-template>
+
+      <ng-template [appZippy]="'course_end'" let-element>
+        <div class="el-responsive">{{ element?.courses_end | date: 'dd/MM/yyyy' || '--/--'}}</div>
+      </ng-template>
+
+      <ng-template [appZippy]="'course_code'" let-element>
+        <div class="el-responsive">{{ element?.courses_code || '--/--'}}</div>
+      </ng-template>
+
       <ng-template [appZippy]="'status'" let-element>
         <span class="status-fill rounded-sm" [ngClass]="element.scholarship_status | approvedStudent | lowercase">
           {{'enum_status.' + (element.scholarship_status | scholarshipStatus) | translate}}

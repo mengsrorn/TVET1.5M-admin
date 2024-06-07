@@ -98,6 +98,21 @@ export class ApproveStudentReportComponent implements OnInit {
       custom: true
     },
     {
+      name: 'table.course_start_date',
+      dataKey: 'course_start',
+      custom: true
+    },
+    {
+      name: 'table.course_end_date',
+      dataKey: 'course_end',
+      custom: true
+    },
+    {
+      name: 'table.course_code',
+      dataKey: 'course_code',
+      custom: true
+    },
+    {
       name: 'table.status',
       dataKey: 'status',
       custom: true
