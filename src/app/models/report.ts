@@ -28,6 +28,8 @@ export interface SchoolReport {
   name_en: string;
   student_data: StudentDataReport[];
   apply_majors?: Major[];
+  course_start?: Date;
+  course_end?: Date;
 }
 
 export interface SchoolReportInfo {
