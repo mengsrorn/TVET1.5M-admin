@@ -58,18 +58,20 @@ export class ReportWeeklyComponent {
     let endDate: string = `${new Date(this.form.value.end).toLocaleDateString('en-ZA')} ${new Date(
       this.form.value.end
     ).toLocaleTimeString('en-US', { hour12: false })}`;
-    let index = pagination ? (pagination.page - 1) * this.params.limit + 1 : 1; // Initialize index
 
     this.reportService
       .getWeeklyReport({ ...this.params, ...pagination, end_date: endDate })
       .pipe(
         map(map => {
-          console.log(map);
 
           if (map?.report_data?.length > 0) {
-            for (const body of map.report_data) {
-              data.push({ ...body, colSpan: this.baseTopColumn?.length - 1, index: index++ });
-            }
+            map.report_data.forEach((body, index) => {
+              data.push({
+                ...body,
+                colSpan: this.baseTopColumn?.length - 1,
+                index: (this.params.page - 1) * this.params.limit + (index + 1)
+              });
+            });
           }
 
           //columns management
@@ -129,6 +131,7 @@ export class ReportWeeklyComponent {
       });
   }
   async onExportFile(): Promise<void> {
+    this.loadingService.setLoading('page', true);
     let endDate: string = `${new Date(this.form.value.end).toLocaleDateString('en-ZA')} ${new Date(
       this.form.value.end
     ).toLocaleTimeString('en-US', { hour12: false })}`;
@@ -170,7 +173,20 @@ export class ReportWeeklyComponent {
 
     // Save the workbook to a file
     XLSX.writeFile(wb, 'file.xlsx');
+    this.loadingService.setLoading('page', false);
   }
+
+  // onExportFile(): void {
+  //   const table = document.getElementById('table')?.cloneNode(true) as HTMLElement;
+  //   const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(table);
+
+  //   // Create a new workbook and append the worksheet
+  //   const wb: XLSX.WorkBook = XLSX.utils.book_new();
+  //   XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+  //   // Save the workbook to a file
+  //   XLSX.writeFile(wb, 'file.xlsx');
+  // }
 
   onCheckTable(): void {
     const table = document.getElementById('table');
