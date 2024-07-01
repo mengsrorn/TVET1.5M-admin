@@ -134,6 +134,48 @@
         <div class="el-responsive">{{ element?.courses_code || '--/--'}}</div>
       </ng-template>
 
+      <ng-template [appZippy]="'position'" let-element>
+        <div class="el-responsive">{{ element?.student_occupations?.position || '--/--'}}</div>
+      </ng-template>
+
+      <ng-template [appZippy]="'income'" let-element>
+        <div class="el-responsive">{{ element?.student_occupations?.income || '--/--'}}</div>
+      </ng-template>
+
+      <ng-template [appZippy]="'bonus'" let-element>
+        <div class="el-responsive">{{ element?.student_occupations?.bonus || '--/--'}}</div>
+      </ng-template>
+
+      <ng-template [appZippy]="'dormitory'" let-element>
+        <div class="el-responsive">
+          {{ element?.student_occupations?.dormitory === 1 ? "មាន" : "មិនមាន"}}
+        </div>
+      </ng-template>
+
+      <ng-template [appZippy]="'transportation'" let-element>
+        <div class="el-responsive">
+          {{element?.student_occupations?.transportation === 1 ? "មាន" : "មិនមាន"}}
+        </div>
+      </ng-template>
+
+      <ng-template [appZippy]="'has_meal'" let-element>
+        <div class="el-responsive">{{ element?.student_occupations?.has_meal === 1 ? "អាហារពេលព្រឹក" : element?.student_occupations?.has_meal === 2 ? "អាហារពេលថ្ងៃ" : element?.student_occupations?.has_meal === 3 ? "ទាំងពីរពេល" : "មិនមាន"}}</div>
+      </ng-template>
+
+      <ng-template [appZippy]="'skill_matched'" let-element>
+        <div class="el-responsive">
+          {{ element?.student_occupations?.skill_matched === 1 ? "ប្រើ" : element?.student_occupations?.skill_matched === 2 ? "ប្រើតិចតួច" : "មិនប្រើ" }}
+        </div>
+      </ng-template>
+
+      <ng-template [appZippy]="'company_address'" let-element>
+        <div class="el-responsive">{{ element?.student_occupations?.company_profile?.address?.detail || '--/--'}}</div>
+      </ng-template>
+
+      <ng-template [appZippy]="'other'" let-element>
+        <div class="el-responsive">{{ element?.student_occupations?.other_info || '--/--'}}</div>
+      </ng-template>
+
       <ng-template [appZippy]="'status'" let-element>
         <span class="status-fill rounded-sm" [ngClass]="element.scholarship_status | approvedStudent | lowercase">
           {{'enum_status.' + (element.scholarship_status | scholarshipStatus) | translate}}

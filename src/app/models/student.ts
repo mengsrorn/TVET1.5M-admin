@@ -14,7 +14,7 @@ export interface Student {
   last_name?: string;
   gender?: string;
   phone_number?: string;
-  phone_bank?:string;
+  phone_bank?: string;
   profile_image?: string;
   poor_id?: string;
   selected?: boolean;
@@ -55,6 +55,21 @@ export interface StudentRequests extends Student {
   courses_start?: Date;
   courses_end?: Date;
   courses_code?: string;
+  student_occupations?: {
+    position?: string;
+    income?: number;
+    bonus?: number;
+    dormitory?: number;
+    transportation?: number;
+    has_meal?: number;
+    skill_matched?: number;
+    company_profile?: {
+      address?: {
+        detail?: string;
+      };
+    };
+    other_info?: string;
+  };
 }
 
 export interface ApprovedStudent extends Student {

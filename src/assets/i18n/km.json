@@ -379,7 +379,17 @@
     "course_end_date": "ថ្ងៃបញ្ចប់ការសិក្សា",
     "open_session": "បើកវគ្គ",
     "class_status": "ស្ថានភាពវគ្គសិក្សា",
-    "course_code": "កូដវគ្គសិក្សា"
+    "course_code": "កូដវគ្គសិក្សា",
+    "average_attendance": "វត្តមាន",
+    "position": "មុខតំណែង",
+    "income": "ប្រាក់ខែ",
+    "bonus": "ប្រាក់ឧបត្ថម្ភបន្ថែម",
+    "dormitory": "កន្លែងស្នាក់នៅ",
+    "transportation": "មធ្យោបាយធ្វើដំណើរ",
+    "has_meal": "ការហូបចុក",
+    "skill_matched": "ប្រើប្រាស់ជំនាញដែលបានរៀន",
+    "company_address": "អាស័យដ្ឋានក្រុមហ៊ុន"
+
   },
   "filter": {
     "search": "ស្វែងរក...",
@@ -404,9 +414,11 @@
     "role": "តួនាទី",
     "apply_majors": "ជំនាញ",
     "courses": "វគ្គសិក្សា",
-    "scholarship_status": "ស្ថានភាព",
+    "scholarship_status": "ស្ថានភាពការសិក្សា",
     "shifts": "វេន",
-    "type_poverty_status": "ស្ថានភាពក្រីក្រ"
+    "type_poverty_status": "ស្ថានភាពក្រីក្រ",
+    "type_scholarship_documents": "ប្រភេទបណ្ណ",
+    "student_occupations": "សិស្សមានការងារ"
   },
   "enum_status": {
     "Published": "កំពុងប្រើប្រាស់",
