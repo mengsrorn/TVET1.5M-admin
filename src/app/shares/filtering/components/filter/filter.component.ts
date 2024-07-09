@@ -326,6 +326,24 @@ export class FilterComponent {
       paramKey: 'status_request',
       labelFunc: 'status',
       matIcon: 'pentagon'
+    },
+    {
+      title: 'internships_student',
+      use: false,
+      data: [
+        {
+          value: null,
+          label: 'filter.all'
+        },
+        {
+          value: 'student_internships',
+          label: 'filter.internship'
+        }
+      ],
+      paramKey: 'student_internships',
+      labelFunc: 'internships_student',
+      translate: 'button.internship',
+      matIcon: 'pentagon'
     }
   ];
   searchSubscription: Subscription;

@@ -337,8 +337,8 @@
     "department": "នាយកដ្ឋាន",
     "year": "ឆ្នាំ",
     "file_attach": "Attachment",
-    "start_date": "Start Date",
-    "end_date": "End Date",
+    "start_date": "ថ្ងៃចាប់ផ្តើម",
+    "end_date": "ថ្ងៃបញ្ចប់",
     "request_date": "ថ្ងៃស្នើសុំ",
     "user": "User",
     "last_modified": "កែប្រែចុងក្រោយ",
@@ -388,7 +388,29 @@
     "transportation": "មធ្យោបាយធ្វើដំណើរ",
     "has_meal": "ការហូបចុក",
     "skill_matched": "ប្រើប្រាស់ជំនាញដែលបានរៀន",
-    "company_address": "អាស័យដ្ឋានក្រុមហ៊ុន"
+    "company_address": "អាស័យដ្ឋានក្រុមហ៊ុន",
+    "type_internship": "ប្រភេទកម្មសិក្សា",
+    "pass_fail": "ជាប់​ ឬ ធ្លាក់",
+    "development_partner_name": "ឈ្មោះដៃគូអភិវឌ្ឍន៍",
+    "development_partner_name_en": "ឈ្មោះឡាតាំងដៃគូអភិវឌ្ឍន៍",
+    "development_partners_phone": "លេខទូរស័ព្ទដៃគូអភិវឌ្ឍន៍",
+    "development_partners_bussiness": "ប្រភេទជំនួញដៃគូអភិវឌ្ឍន៍",
+    "type_development_partners": "ប្រភេទដៃគូអភិវឌ្ឍន៍",
+    "job_opportunity": "ឱកាសការងារ",
+    "total_register_female": "ចំនួនដាក់ពាក្យ​ (ស្រី)",
+    "total_register_poorid": "ចំនួនដាក់ពាក្យដែលមានប័ណ្ណ",
+    "total_register_poorid_female": "ចំនួនដាក់ពាក្យដែលមានប័ណ្ណ (ស្រី)",
+    "total_approve_female": "ចំនួនអនុម័តចូលរៀន​ (ស្រី)",
+    "total_approve_poorid": "ចំនួនអនុម័តចូលរៀនដែលមានប័ណ្ណ",
+    "total_approve_poorid_female": "ចំនួនអនុម័តចូលរៀនដែលមានប័ណ្ណ​ (ស្រី​)",
+    "total_reject": "ចំនួនបដិសេធ​",
+    "total_reject_female": "ចំនួនបដិសេធ​ (ស្រី)",
+    "total_reject_poorid": "ចំនួនបដិសេធ​ដែលមានប័ណ្ណ",
+    "total_reject_poorid_female": "ចំនួនបដិសេធ​ដែលមានប័ណ្ណ (ស្រី)",
+    "total_leave": "ចំនួនបោះបង់ក្រោយពេលអនុម័ត​",
+    "total_leave_female": "ចំនួនបោះបង់ក្រោយពេលអនុម័ត​ (ស្រី)",
+    "total_leave_poorid": "ចំនួនបោះបង់ក្រោយពេលអនុម័តដែលមានប័ណ្ណ​",
+    "total_leave_poorid_female": "ចំនួនបោះបង់ក្រោយពេលអនុម័តដែលមានប័ណ្ណ​ (ស្រី)"
 
   },
   "filter": {
@@ -418,7 +440,8 @@
     "shifts": "វេន",
     "type_poverty_status": "ស្ថានភាពក្រីក្រ",
     "type_scholarship_documents": "ប្រភេទបណ្ណ",
-    "student_occupations": "សិស្សមានការងារ"
+    "student_occupations": "សិស្សមានការងារ",
+    "internship": "កំពុងកម្មសិក្សា"
   },
   "enum_status": {
     "Published": "កំពុងប្រើប្រាស់",

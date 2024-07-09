@@ -12,7 +12,8 @@ import { ReportStatusByMajorComponent } from './components/report-status-by-majo
 import { ReportStatusBySchoolComponent } from './components/report-status-by-school/report-status-by-school.component';
 import { ReportCourseComponent } from './components/report-course/report-course.component';
 import { StudentRequestsReportComponent } from './components/student-requests/student-requests-report/student-requests-report.component';
-import { ReportWeeklyComponent } from './components/report-weekly/report-weekly.component'; 
+import { ReportWeeklyComponent } from './components/report-weekly/report-weekly.component';
+import { ReportStudentInternshipComponent } from './components/report-student-internship/report-student-internship.component';
 
 const routes: Routes = [
   {
@@ -71,6 +72,10 @@ const routes: Routes = [
   {
     path: 'weekly-report',
     component: ReportWeeklyComponent
+  },
+  {
+    path: 'student-internship',
+    component: ReportStudentInternshipComponent
   }
 ];
 

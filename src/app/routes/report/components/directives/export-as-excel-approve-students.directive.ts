@@ -28,7 +28,9 @@ export class ExportAsExcelApproveStudentsDirective extends Unsubscribe {
     '',
     '',
     'បញ្ចប់ការសិក្សា',
-    'បានចាកចេញ'
+    'បានចាកចេញ',
+    'បានចាកចេញមុនរៀន',
+    'បានចាកចេញពេលរៀន'
   ];
   @Input('appExportAsExcelApproveStudents') data: { params: Params; filterParams: Params };
 

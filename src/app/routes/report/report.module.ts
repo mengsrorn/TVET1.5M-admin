@@ -50,6 +50,8 @@ import { StatusPipeModule } from 'src/app/shares/status-pipe/status-pipe.module'
 import { ReportCourseComponent } from './components/report-course/report-course.component';
 import { ReportWeeklyComponent } from './components/report-weekly/report-weekly.component';
 import { PaginationModule } from '../../shares/pagination/pagination.module';
+import { ReportStudentInternshipComponent } from './components/report-student-internship/report-student-internship.component';
+
 @NgModule({
   declarations: [
     StudentRequestsReportComponent,
@@ -71,7 +73,8 @@ import { PaginationModule } from '../../shares/pagination/pagination.module';
     ReportStatusBySchoolComponent,
     ReportStatusByMajorComponent,
     ReportCourseComponent,
-    ReportWeeklyComponent
+    ReportWeeklyComponent,
+    ReportStudentInternshipComponent
   ],
   providers: [Base64ImagePipe, KhmerDatePipe],
   imports: [

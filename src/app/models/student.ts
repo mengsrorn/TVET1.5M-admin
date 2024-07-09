@@ -70,6 +70,33 @@ export interface StudentRequests extends Student {
     };
     other_info?: string;
   };
+  student_internships?: {
+    start_date?: Date;
+    end_date?: Date;
+    type_poverty_status?: string;
+    pass_fail?: number;
+    type_internships?: number;
+    job_opportunity?: boolean;
+    salary?: number;
+    development_partners?: {
+      name?: string;
+      name_en?: string;
+      phone_number?: string;
+      bussiness?: string;
+      type_development_partners?: number;
+      address?: {
+        city_provinces?: {
+          name?: string;
+        };
+        districts?: {
+          name?: string;
+        };
+        villages?: {
+          name?: string;
+        };
+      };
+    };
+  };
 }
 
 export interface ApprovedStudent extends Student {

@@ -78,4 +78,7 @@ export class ReportService extends BaseCrudService<any> {
   getWeeklyReport(data: { end_date: string }): Observable<ApplyCountBySchool> {
     return this.requestService.getJSON(`${this.path}/weekly_report`, { data, is_loading: true });
   }
+  getStudentInternship(data: { end_date: string }): Observable<BaseDataTable<StudentRequests>> {
+    return this.requestService.getJSON(this.path + '/student_internship', { data, is_loading: true });
+  }
 }
