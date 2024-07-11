@@ -440,8 +440,9 @@
     "shifts": "វេន",
     "type_poverty_status": "ស្ថានភាពក្រីក្រ",
     "type_scholarship_documents": "ប្រភេទបណ្ណ",
-    "student_occupations": "សិស្សមានការងារ",
-    "internship": "កំពុងកម្មសិក្សា"
+    "student_occupations": "ស្ថានភាពការងារ",
+    "internship": "កំពុងកម្មសិក្សា",
+    "student_internships": "ស្ថានភាពកម្មសិក្សា"
   },
   "enum_status": {
     "Published": "កំពុងប្រើប្រាស់",

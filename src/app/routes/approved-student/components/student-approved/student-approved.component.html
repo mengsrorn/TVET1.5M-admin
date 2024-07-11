@@ -2,10 +2,16 @@
   <div class="app-header">
     <div class="app-title flex items-center justify-content-between">
       <h1 class="title">{{"menu.approved_student.title" | translate}}</h1>
-      <button mat-flat-button color="print" (click)="redirectIntern()">
-        <mat-icon>assignment</mat-icon>
-        {{'button.internship' | translate}}
-      </button>
+      <div class="items-space">
+        <button mat-flat-button color="print"  (click)="onExportFile()" [disabled]="tableData?.list?.length < 1">
+          <mat-icon>list_alt</mat-icon>
+          {{'button.export_file' | translate}}
+        </button>
+        <button mat-flat-button color="primary" (click)="redirectIntern()">
+          <mat-icon>assignment</mat-icon>
+          {{'button.internship' | translate}}
+        </button>
+      </div>
     </div>
   </div>
 
@@ -16,6 +22,7 @@
       [tableColumns]="tableColumns"
       [requestUrl]="requestUrl"
       (goToEvent)="goTo($event)"
+      id="approved-scholarship-table"
     >
       <ng-template [appZippy]="'name'" let-element>
         <div class="group-picture-name">

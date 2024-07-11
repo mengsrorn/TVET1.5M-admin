@@ -174,8 +174,7 @@ export class ReportCourseComponent {
     ).toLocaleTimeString('en-US', { hour12: false })}`;
     this.courseService.getDataCourseByDateRange({ ...pagination, start_date: startDate, end_date: endDate }).subscribe({
       next: res => {
-        console.log(res);
-
+      
         this.tableDataSource = res;
         takeUntil(this.destroyer$);
         this.loadingService.setLoading('page', false);

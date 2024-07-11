@@ -177,6 +177,8 @@ export class ReportStudentInternshipComponent {
   }
 
   onExportFile(): void {
+    this.loadingService.setLoading('page', true);
+
     const pagination = { limit: 0 };
 
     const endDate: string = `${new Date(this.form.value.end).toLocaleDateString('en-ZA')} ${new Date(
@@ -195,8 +197,8 @@ export class ReportStudentInternshipComponent {
             'ជំនាញ': student?.courses?.apply_majors?.name || '--/--',
             'ប្រភេទកម្មសិក្សា':
               student?.student_internships?.type_internships === 1 ? 'កម្មសិក្សា' : 'ទស្សនកិច្ច' || '--//--',
-            'ថ្ងៃចាប់ផ្តើម': student?.student_internships?.start_date || '--/--',
-            'ថ្ងៃបញ្ចប់': student.student_internships?.end_date || '--/--',
+            'ថ្ងៃចាប់ផ្តើម': new Date(student?.student_internships?.start_date) || '--/--',
+            'ថ្ងៃបញ្ចប់': new Date(student.student_internships?.end_date) || '--/--',
             'ជាប់​ ឬ ធ្លាក់': student?.student_internships?.pass_fail === 1 ? 'ជាប់' : 'ធ្លាក់' || '--//--',
             'ឈ្មោះដៃគូអភិវឌ្ឍន៍': student?.student_internships?.development_partners?.name || '--/--',
             'ឈ្មោះឡាតាំងដៃគូអភិវឌ្ឍន៍': student?.student_internships?.development_partners?.name_en || '--/--',
@@ -228,6 +230,8 @@ export class ReportStudentInternshipComponent {
 
         /* save to file */
         XLSX.writeFile(wb, 'file.xlsx');
+        this.loadingService.setLoading('page', false);
+
       }
     });
   }
