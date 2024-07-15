@@ -3,7 +3,7 @@
     <div class="app-title flex items-center justify-content-between">
       <h1 class="title">{{"menu.approved_student.title" | translate}}</h1>
       <div class="items-space">
-        <button mat-flat-button color="print"  (click)="onExportFile()" [disabled]="tableData?.list?.length < 1">
+        <button mat-flat-button color="print" (click)="onExportFile()" [disabled]="tableData?.list?.length < 1">
           <mat-icon>list_alt</mat-icon>
           {{'button.export_file' | translate}}
         </button>
