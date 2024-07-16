@@ -47,4 +47,5 @@ export type useFilter =
   | 'departments'
   | 'schools'
   | 'month'
-  | 'student_internships';
+  | 'student_internships'
+  | 'poor_id';

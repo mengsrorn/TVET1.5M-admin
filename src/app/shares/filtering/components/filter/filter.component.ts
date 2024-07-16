@@ -344,6 +344,24 @@ export class FilterComponent {
       labelFunc: 'internships_student',
       translate: 'button.internship',
       matIcon: 'pentagon'
+    },
+    {
+      title: 'filter.poor_status',
+      use: false,
+      data: [
+        {
+          value: null,
+          label: 'filter.all'
+        },
+        {
+          value: 'has_poor_id',
+          label: 'filter.poor_status'
+        }
+      ],
+      paramKey: 'poor_id',
+      labelFunc: 'filter.poor_id',
+      translate: 'មានប័ណ្ណ',
+      matIcon: 'pentagon'
     }
   ];
   searchSubscription: Subscription;
