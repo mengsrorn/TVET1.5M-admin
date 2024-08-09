@@ -410,7 +410,9 @@
     "total_leave": "ចំនួនបោះបង់ក្រោយពេលអនុម័ត​",
     "total_leave_female": "ចំនួនបោះបង់ក្រោយពេលអនុម័ត​ (ស្រី)",
     "total_leave_poorid": "ចំនួនបោះបង់ក្រោយពេលអនុម័តដែលមានប័ណ្ណ​",
-    "total_leave_poorid_female": "ចំនួនបោះបង់ក្រោយពេលអនុម័តដែលមានប័ណ្ណ​ (ស្រី)"
+    "total_leave_poorid_female": "ចំនួនបោះបង់ក្រោយពេលអនុម័តដែលមានប័ណ្ណ​ (ស្រី)",
+    "company_name": "ឈ្មោះសហគ្រាស គ្រឹះស្ថាន",
+    "company_action": "សកម្មភាពអាជីវកម្ម"
 
   },
   "filter": {
@@ -443,7 +445,7 @@
     "student_occupations": "ស្ថានភាពការងារ",
     "internship": "កំពុងកម្មសិក្សា",
     "student_internships": "ស្ថានភាពកម្មសិក្សា",
-    "poor_id":"បណ្ណសមធម៌"
+    "poor_id_status":"បណ្ណសមធម៌"
   },
   "enum_status": {
     "Published": "កំពុងប្រើប្រាស់",

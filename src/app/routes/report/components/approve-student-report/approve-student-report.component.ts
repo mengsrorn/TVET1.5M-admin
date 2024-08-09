@@ -148,6 +148,11 @@ export class ApproveStudentReportComponent implements OnInit {
       custom: true
     },
     {
+      name: 'table.company_name',
+      dataKey: 'company_name',
+      custom: true
+    },
+    {
       name: 'table.company_address',
       dataKey: 'company_address',
       custom: true

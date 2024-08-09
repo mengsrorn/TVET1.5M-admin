@@ -168,8 +168,12 @@
         </div>
       </ng-template>
 
+      <ng-template [appZippy]="'company_name'" let-element>
+        <div class="el-responsive">{{ element?.student_occupations?.company_profile?.name || '--/--'}}</div>
+      </ng-template>
+    
       <ng-template [appZippy]="'company_address'" let-element>
-        <div class="el-responsive">{{ element?.student_occupations?.company_profile?.address?.detail || '--/--'}}</div>
+        <div class="el-responsive">{{ element?.student_occupations?.company_profile?.address?.company_address || '--/--'}}</div>
       </ng-template>
 
       <ng-template [appZippy]="'other'" let-element>

@@ -98,7 +98,7 @@ export class ReportStatusBySchoolComponent {
 
             //mapping second header
             for (let index = 0; index < map.header_columns?.length; index++) {
-              if (index === 13) {
+              if (index === 15) {
                 for (let i = 0; i < 1; i++) {
                   let result = map.header_columns[index];
                   this.exportColumn.push('th_col' + index + i);
@@ -108,7 +108,7 @@ export class ReportStatusBySchoolComponent {
                   });
                 }
               }
-              if (index === 15) {
+              if (index === 17) {
                 for (let i = 0; i < 1; i++) {
                   let result = map.header_columns[index];
                   this.exportColumn.push('th_col' + index + i);
