@@ -90,7 +90,7 @@
         <div>
           <label class="required">{{'form.shift' | translate}}</label>
           <mat-form-field appearance="outline">
-            <mat-select formControlName="shifts">
+            <mat-select formControlName="shifts" (valueChange)="onSelectionChange()">
               <app-searchbar-in-select-option (queryEvent)="onSearchShift($event)"></app-searchbar-in-select-option>
               <mat-option *ngIf="shifts?.length < 1" disabled>
                 <span class="flex" [ngStyle]="{'justify-content': 'center'}">{{'filter.no_data' | translate}}</span>
@@ -144,7 +144,7 @@
         <div>
           <label>{{'form.fee' | translate}}</label>
           <mat-form-field appearance="outline">
-            <input type="number" matInput formControlName="fee" min="0" readonly/>
+            <input type="number" matInput formControlName="fee" min="0" />
             <span matTextSuffix class="text-blur">៛</span>
           </mat-form-field>
         </div>

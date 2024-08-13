@@ -14,7 +14,7 @@ export interface Student {
   last_name?: string;
   gender?: string;
   phone_number?: string;
-  phone_bank?:string;
+  phone_bank?: string;
   profile_image?: string;
   poor_id?: string;
   selected?: boolean;
@@ -55,6 +55,48 @@ export interface StudentRequests extends Student {
   courses_start?: Date;
   courses_end?: Date;
   courses_code?: string;
+  student_occupations?: {
+    position?: string;
+    income?: number;
+    bonus?: number;
+    dormitory?: number;
+    transportation?: number;
+    has_meal?: number;
+    skill_matched?: number;
+    company_profile?: {
+      address?: {
+        detail?: string;
+      };
+    };
+    other_info?: string;
+  };
+  student_internships?: {
+    start_date?: Date;
+    end_date?: Date;
+    type_poverty_status?: string;
+    pass_fail?: number;
+    type_internships?: number;
+    job_opportunity?: boolean;
+    salary?: number;
+    development_partners?: {
+      name?: string;
+      name_en?: string;
+      phone_number?: string;
+      bussiness?: string;
+      type_development_partners?: number;
+      address?: {
+        city_provinces?: {
+          name?: string;
+        };
+        districts?: {
+          name?: string;
+        };
+        villages?: {
+          name?: string;
+        };
+      };
+    };
+  };
 }
 
 export interface ApprovedStudent extends Student {

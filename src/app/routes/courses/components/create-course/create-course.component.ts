@@ -35,6 +35,7 @@ export class CreateCourseComponent {
     limit: 0,
     search: null
   };
+  shiftChange: boolean = false;
 
   paramsShift: Pagination = {
     page: 1,
@@ -99,6 +100,7 @@ export class CreateCourseComponent {
       course_start: ['', Validators.required],
       course_end: ['', Validators.required]
     });
+
     this.form.get('registation_end').disable();
     this.form.get('course_start').disable();
     this.form.get('course_end').disable();
@@ -106,12 +108,6 @@ export class CreateCourseComponent {
       this.form.get('registation_end').enable();
       this.form.get('course_start').enable();
       this.form.get('course_end').enable();
-    });
-    this.form.get('shifts').valueChanges.subscribe(shiftId => {
-      const selectedShift = this.shifts.find(shift => shift._id === shiftId);
-      if (selectedShift) {
-        this.form.get('fee').setValue(selectedShift.fee);
-      }
     });
   }
 
@@ -139,6 +135,7 @@ export class CreateCourseComponent {
   }
 
   patchFormGroup(item: Course): void {
+
     this.form.patchValue({
       code: item?.code,
       duration: item.duration,
@@ -277,5 +274,13 @@ export class CreateCourseComponent {
     this.timer = setTimeout(() => {
       this.getShifts();
     }, 500);
+  }
+  onSelectionChange(): void {
+    this.form.get('shifts').valueChanges.subscribe(shiftId => {
+      const selectedShift = this.shifts.find(shift => shift._id === shiftId);
+      if (selectedShift) {
+        this.form.get('fee').setValue(selectedShift.fee);
+      }
+    });
   }
 }

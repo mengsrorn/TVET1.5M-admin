@@ -73,12 +73,82 @@ export class ReportCourseComponent {
     },
     {
       name: 'table.total_register',
-      dataKey: 'total_student_count',
+      dataKey: 'total_register',
+      custom: true
+    },
+    {
+      name: 'table.total_register_female',
+      dataKey: 'total_register_female',
+      custom: true
+    },
+    {
+      name: 'table.total_register_poorid',
+      dataKey: 'total_register_poorid',
+      custom: true
+    },
+    {
+      name: 'table.total_register_poorid_female',
+      dataKey: 'total_register_poorid_female',
       custom: true
     },
     {
       name: 'table.total_approve',
-      dataKey: 'student_active_count',
+      dataKey: 'total_approve',
+      custom: true
+    },
+    {
+      name: 'table.total_approve_female',
+      dataKey: 'total_approve_female',
+      custom: true
+    },
+    {
+      name: 'table.total_approve_poorid',
+      dataKey: 'total_approve_poorid',
+      custom: true
+    },
+    {
+      name: 'table.total_approve_poorid_female',
+      dataKey: 'total_approve_poorid_female',
+      custom: true
+    },
+    {
+      name: 'table.total_reject',
+      dataKey: 'total_reject',
+      custom: true
+    },
+    {
+      name: 'table.total_reject_female',
+      dataKey: 'total_reject_female',
+      custom: true
+    },
+    {
+      name: 'table.total_reject_poorid',
+      dataKey: 'total_reject_poorid',
+      custom: true
+    },
+    {
+      name: 'table.total_reject_poorid_female',
+      dataKey: 'total_reject_poorid_female',
+      custom: true
+    },
+    {
+      name: 'table.total_leave',
+      dataKey: 'total_leave',
+      custom: true
+    },
+    {
+      name: 'table.total_leave_female',
+      dataKey: 'total_leave_female',
+      custom: true
+    },
+    {
+      name: 'table.total_leave_poorid',
+      dataKey: 'total_leave_poorid',
+      custom: true
+    },
+    {
+      name: 'table.total_leave_poorid_female',
+      dataKey: 'total_leave_poorid_female',
       custom: true
     },
     {
@@ -104,6 +174,7 @@ export class ReportCourseComponent {
     ).toLocaleTimeString('en-US', { hour12: false })}`;
     this.courseService.getDataCourseByDateRange({ ...pagination, start_date: startDate, end_date: endDate }).subscribe({
       next: res => {
+      
         this.tableDataSource = res;
         takeUntil(this.destroyer$);
         this.loadingService.setLoading('page', false);
@@ -141,17 +212,31 @@ export class ReportCourseComponent {
           const currentDate = new Date();
           dataExportColumn.push({
             id: course._id,
-            code: course.code,
-            major: course.apply_majors.name,
-            registerStartDate: this.formatDate(new Date(course.registation_start)),
-            registerEndDate: this.formatDate(new Date(course.registation_end)),
-            course_start_date: this.formatDate(new Date(course.course_start)),
-            course_end_date: this.formatDate(new Date(course.course_end)),
-            shift: course.shifts.name,
-            school: course?.schools?.name,
-            total_apply: course['total_submit_student_count'],
-            total_approve: course['student_active_count'],
-            class_status:
+            'វគ្គសិក្សា': course.code,
+            'ជំនាញ': course.apply_majors.name,
+            'ថ្ងៃចុះឈ្មោះ': this.formatDate(new Date(course.registation_start)),
+            'ថ្ងៃបិទការចុះឈ្មោះ': this.formatDate(new Date(course.registation_end)),
+            'ថ្ងៃចាប់ផ្តើមសិក្សា': this.formatDate(new Date(course.course_start)),
+            'ថ្ងៃបញ្ចប់ការសិក្សា': this.formatDate(new Date(course.course_end)),
+            'វេន': course.shifts.name,
+            'គ្រឹះស្ថាន អ.ប.វ.': course?.schools?.name,
+            'ចំនួនចុះឈ្មោះ (សរុប)': course['total_submit_student_count'],
+            'ចំនួនចុះឈ្មោះ (ស្រី)': course['total_submit_student_female_count'],
+            'ចំនួនចុះឈ្មោះដែលមានប័ណ្ណ (សរុប)': course['total_submit_poorid_student_count'],
+            'ចំនួនចុះឈ្មោះដែលមានប័ណ្ណ (ស្រី)': course['total_submit_poorid_student_female_count'],
+            'ចំនួនអនុម័ត (សរុប)': course['total_student_active_count'],
+            'ចំនួនអនុម័ត (ស្រី)': course['total_student_active_female_count'],
+            'ចំនួនអនុម័តដែលមានប័ណ្ណ (សរុប)': course['total_student_active_poorid_count'],
+            'ចំនួនអនុម័តដែលមានប័ណ្ណ (ស្រី)': course['total_student_active_poorid_female_count'],
+            'ចំនួនបដិសេធ (សរុប)': course['total_student_reject_count'],
+            'ចំនួនបដិសេធ (ស្រី)': course['total_student_reject_female_count'],
+            'ចំនួនបដិសេធដែលមានប័ណ្ណ (សរុប)': course['total_student_reject_poorid_count'],
+            'ចំនួនបដិសេធដែលមានប័ណ្ណ (ស្រី)': course['total_student_reject_poorid_female_count'],
+            'ចំនួនបោះបង់ក្រោយពេលអនុម័ត (សរុប)': course['total_student_leave_count'],
+            'ចំនួនបោះបង់ក្រោយពេលអនុម័ត​ (ស្រី)': course['total_student_leave_female_count'],
+            'ចំនួនបោះបង់ក្រោយពេលអនុម័តដែលមានប័ណ្ណ (សរុប)': course['total_student_leave_poorid_count'],
+            'ចំនួនបោះបង់ក្រោយពេលអនុម័តដែលមានប័ណ្ណ​ (ស្រី)': course['total_student_leave_poorid_female_count'],
+            'ស្ថានភាពថ្នាក់':
               currentDate >= new Date(course.course_start) && currentDate < new Date(course.course_end)
                 ? 'ដំណើរការ'
                 : currentDate > new Date(course.course_end) && currentDate > new Date(course.course_start)

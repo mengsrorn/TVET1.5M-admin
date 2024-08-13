@@ -28,7 +28,9 @@ export class ExportAsExcelApproveStudentsDirective extends Unsubscribe {
     '',
     '',
     'បញ្ចប់ការសិក្សា',
-    'បានចាកចេញ'
+    'បានចាកចេញ',
+    'បានចាកចេញមុនរៀន',
+    'បានចាកចេញពេលរៀន'
   ];
   @Input('appExportAsExcelApproveStudents') data: { params: Params; filterParams: Params };
 
@@ -110,6 +112,30 @@ export class ExportAsExcelApproveStudentsDirective extends Unsubscribe {
         [this.translateService.instant('table.course_start_date')]: new Date(element?.courses_start),
         [this.translateService.instant('table.course_end_date')]: new Date(element?.courses_end),
         [this.translateService.instant('table.course_code')]: element?.courses_code,
+        [this.translateService.instant('table.position')]: element?.student_occupations?.position,
+        [this.translateService.instant('table.income')]: element?.student_occupations?.income,
+        [this.translateService.instant('table.bonus')]: element?.student_occupations?.bonus,
+        [this.translateService.instant('table.dormitory')]:
+          element?.student_occupations?.dormitory === 1 ? 'មាន' : 'មិនមាន',
+        [this.translateService.instant('table.transportation')]:
+          element?.student_occupations?.transportation === 1 ? 'មាន' : 'មិនមាន',
+        [this.translateService.instant('table.has_meal')]:
+          element?.student_occupations?.has_meal === 1
+            ? 'អាហារពេលព្រឹក'
+            : element?.student_occupations?.has_meal === 2
+            ? 'អាហារពេលថ្ងៃ'
+            : element?.student_occupations?.has_meal === 3
+            ? 'ទាំងពីរពេល'
+            : 'មិនមាន',
+        [this.translateService.instant('table.skill_matched')]:
+          element?.student_occupations?.skill_matched === 1
+            ? 'ប្រើ'
+            : element?.student_occupations?.skill_matched === 2
+            ? 'ប្រើតិចតួច'
+            : 'មិនប្រើ',
+        [this.translateService.instant('table.company_address')]:
+          element?.student_occupations?.company_profile?.address?.detail,
+        [this.translateService.instant('table.other')]: element?.student_occupations?.other_info,
         [this.translateService.instant('table.status')]:
           this.enumStatus[element?.scholarship_status === -3 ? 'បដិសេធ' : element?.scholarship_status]
       };

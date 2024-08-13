@@ -1,0 +1,192 @@
+<div class="app-content">
+  <div class="app-header">
+    <div class="app-title">
+      <h1 class="title">កម្មសិក្សា</h1>
+    </div>
+  </div>
+  <div class="detail-form">
+    <div class="flex wrap items-center place-content-space-between gap-8">
+      <section class="flex wrap items-center gap-8 no-subscript-wrapper" [formGroup]="form">
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Report Date</mat-label>
+          <input
+            matInput
+            [ngxMatDatetimePicker]="picker1"
+            formControlName="end"
+            readonly
+            (dateChange)="onInputDate()"
+          />
+          <mat-datepicker-toggle matSuffix [for]="$any(picker1)">
+            <mat-icon matDatepickerToggleIcon>calendar_month</mat-icon></mat-datepicker-toggle
+          >
+          <ngx-mat-datetime-picker #picker1 [showSeconds]="true"></ngx-mat-datetime-picker>
+        </mat-form-field>
+
+        <app-filter
+          [hide]="['search','yearDate', 'dateRange', 'date']"
+          (queryFilter)="setParams($event)"
+          [useFilters]="useFilter"
+          class="fix-filter"
+        >
+        </app-filter>
+
+        <button mat-flat-button (click)="onDateChange()" color="primary" class="fix-btn-generate">
+          <mat-icon>send</mat-icon>
+          Generate
+        </button>
+      </section>
+
+      <div class="">
+        <button mat-flat-button color="print" (click)="onExportFile()" [disabled]="!!!tableData?.list?.length">
+          <mat-icon>print</mat-icon>
+          {{'button.export_file' | translate}}
+        </button>
+      </div>
+    </div>
+    <custom-table
+      [tableData]="tableData"
+      [tableColumns]="tableColumns"
+      [requestUrl]="requestUrl"
+      (goToEvent)="goTo($event)"
+      id="table"
+      *ngIf="!!tableData; else emptyReport"
+    >
+      <ng-template [appZippy]="'name'" let-element>
+        <div class="group-picture-name">
+          <img
+            class="profile-picture-list"
+            *ngIf="element.profile_image; else elseBlock"
+            [src]="(element.profile_image | staticFile) + '?image_size=s'"
+            alt="profile picture"
+          />
+          <ng-template #elseBlock>
+            <img
+              class="profile-picture-list"
+              [src]="(element.gender === 'female' ? '/assets/imgs/female.svg' : '/assets/imgs/male.svg')"
+              alt="profile picture"
+            />
+          </ng-template>
+          <div class="el-responsive">{{element | fullName}}</div>
+        </div>
+      </ng-template>
+
+      <ng-template [appZippy]="'gender'" let-element>
+        {{(element.gender === 'female' ? ('form.gender.female' | translate) : ('form.gender.male' | translate) |
+            titlecase)|| '--//--'}}
+      </ng-template>
+
+      <ng-template [appZippy]="'type_poverty_status'" let-element>
+        <div class="el-responsive">{{element.type_poverty_status || '--//--'}}</div>
+      </ng-template>
+
+      <ng-template [appZippy]="'schools'" let-element>
+        <div class="group-picture-name">
+          <img
+            class="profile-picture-list"
+            *ngIf="element?.schools?.profile_image; else elseBlock"
+            [src]="(element?.schools?.profile_image | staticFile) + '?image_size=s'"
+            alt="profile picture"
+            onerror="this.onerror=null;this.src='/assets/imgs/school.svg'"
+          />
+          <ng-template #elseBlock>
+            <img class="profile-picture-list" [src]="'/assets/imgs/school.svg'" alt="profile picture" />
+          </ng-template>
+          <div class="el-responsive">{{element.schools | translateAPI: translate.currentLang}}</div>
+        </div>
+      </ng-template>
+      <ng-template [appZippy]="'major'" let-element>
+        <div class="el-responsive">
+          {{element?.courses?.apply_majors?.name || '--//--'}}
+        </div>
+      </ng-template>
+
+      <ng-template [appZippy]="'type_internship'" let-element>
+        <div class="el-responsive">
+          {{element?.student_internships?.type_internships === 1 ? "កម្មសិក្សា" : "ទស្សនកិច្ច" || '--//--'}}
+        </div>
+      </ng-template>
+
+      <ng-template [appZippy]="'start_date'" let-element>
+        <div class="el-responsive">{{element?.student_internships?.start_date | date: 'dd/MM/yyyy' || '--//--' }}</div>
+      </ng-template>
+
+      <ng-template [appZippy]="'end_date'" let-element>
+        <div class="el-responsive">{{element?.student_internships?.end_date | date: 'dd/MM/yyyy' || '--//--' }}</div>
+      </ng-template>
+
+      <ng-template [appZippy]="'pass_fail'" let-element>
+        <div class="el-responsive">
+          {{element.student_internships?.pass_fail === 1 ? 'ជាប់' : element.student_internships?.pass_fail === -1 ? 'ធ្លាក់' : '--//--' }}
+        </div>
+      </ng-template>
+
+      <ng-template [appZippy]="'development_partner_name'" let-element>
+        <div class="el-responsive">{{ element?.student_internships?.development_partners?.name || '--/--' }}</div>
+      </ng-template>
+
+      <ng-template [appZippy]="'development_partner_name_en'" let-element>
+        <div class="el-responsive">{{ element?.student_internships?.development_partners?.name_en || '--/--' }}</div>
+      </ng-template>
+
+      <ng-template [appZippy]="'development_partners_phone'" let-element>
+        <div class="el-responsive">
+          {{ element?.student_internships?.development_partners?.phone_number || '--/--' }}
+        </div>
+      </ng-template>
+
+      <ng-template [appZippy]="'development_partners_bussiness'" let-element>
+        <div class="el-responsive">{{ element?.student_internships?.development_partners?.bussiness || '--/--'}}</div>
+      </ng-template>
+
+      <ng-template [appZippy]="'type_development_partners'" let-element>
+        <div class="el-responsive">
+          {{ element?.student_internships?.development_partners?.type_development_partners === 1 ? "ក្នុងប្រទេស" 
+          : element?.student_internships?.development_partners?.type_development_partners === 2 ? "ក្រៅប្រទេស" 
+          : element?.student_internships?.development_partners?.type_development_partners === 3 ? "ជាមួយគ្រឹះស្ថានជាតិ" 
+          : element?.student_internships?.development_partners?.type_development_partners === 4 ? "ជាមួយគ្រឹះស្ថានអន្តរជាតិ" 
+          : element?.student_internships?.development_partners?.type_development_partners === 5 ? "ជាមួយវិស័យឯកជន" 
+          : "--/--" }}
+        </div>
+      </ng-template>
+
+      <ng-template [appZippy]="'city_province'" let-element>
+        <div class="el-responsive">
+          {{ element?.student_internships?.development_partners?.address?.city_provinces?.name || '--/--'}}
+        </div>
+      </ng-template>
+
+      <ng-template [appZippy]="'district'" let-element>
+        <div class="el-responsive">
+          {{ element?.student_internships?.development_partners?.address?.districts?.name|| '--/--'}}
+        </div>
+      </ng-template>
+
+      <ng-template [appZippy]="'village'" let-element>
+        <div class="el-responsive">
+          {{ element?.student_internships?.development_partners?.address?.villages?.name || '--/--'}}
+        </div>
+      </ng-template>
+
+      <ng-template [appZippy]="'job_opportunity'" let-element>
+        <div class="el-responsive">
+          {{ element?.student_internships?.job_opportunity === true ? 'ទទួលបាន' : 'មិនទទួលបាន' || '--/--'}}
+        </div>
+      </ng-template>
+
+      <ng-template [appZippy]="'income'" let-element>
+        <div class="el-responsive">{{ element?.student_internships?.salary || '--/--'}}</div>
+      </ng-template>
+    </custom-table>
+    <ng-template #emptyReport>
+      <div class="report-empty">
+        <div class="fix-empty">
+          <img src="../../../../../assets/imgs/report-empty.svg" class="fix-img" alt="report image placeholder" />
+          <div align="center" class="grid gap-y-4 mt-4">
+            <strong>សូមជ្រើសរើសកាលបរិច្ឆេទ</strong>
+            <span class="text-blur">ទទួលយកសំណើររបស់បេក្ខជន</span>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

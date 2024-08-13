@@ -326,6 +326,42 @@ export class FilterComponent {
       paramKey: 'status_request',
       labelFunc: 'status',
       matIcon: 'pentagon'
+    },
+    {
+      title: 'internships_student',
+      use: false,
+      data: [
+        {
+          value: null,
+          label: 'filter.all'
+        },
+        {
+          value: 'student_internships',
+          label: 'filter.internship'
+        }
+      ],
+      paramKey: 'student_internships',
+      labelFunc: 'internships_student',
+      translate: 'button.internship',
+      matIcon: 'pentagon'
+    },
+    {
+      title: 'filter.poor_status',
+      use: false,
+      data: [
+        {
+          value: null,
+          label: 'filter.all'
+        },
+        {
+          value: 'has_poor_id',
+          label: 'filter.poor_status'
+        }
+      ],
+      paramKey: 'poor_id',
+      labelFunc: 'filter.poor_id',
+      translate: 'មានប័ណ្ណ',
+      matIcon: 'pentagon'
     }
   ];
   searchSubscription: Subscription;

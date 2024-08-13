@@ -98,7 +98,7 @@ export class ReportStatusByMajorComponent {
 
             //mapping second header
             for (let index = 0; index < map.header_columns?.length; index++) {
-              if (index === 10) {
+              if (index === 15) {
                 for (let i = 0; i < 1; i++) {
                   let result = map.header_columns[index];
                   this.exportColumn.push('th_col' + index + i);
@@ -108,7 +108,7 @@ export class ReportStatusByMajorComponent {
                   });
                 }
               }
-              if (index === 12) {
+              if (index === 17) {
                 for (let i = 0; i < 1; i++) {
                   let result = map.header_columns[index];
                   this.exportColumn.push('th_col' + index + i);
@@ -134,6 +134,8 @@ export class ReportStatusByMajorComponent {
       )
       .subscribe({
         next: res => {
+          console.log(res);
+
           this.data = res;
           this.tableDataSource = new MatTableDataSource(data);
           this.displayedColumns = [...this.baseColumn, ...this.exportColumn];

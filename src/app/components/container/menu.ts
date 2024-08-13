@@ -246,6 +246,13 @@ export const MENU: MenuItem[] = [
         icon: '',
         svgIcon: 'pie-chart',
         permissions: [pAdmin.report.adminDataApprovedCount]
+      },
+      {
+        title: 'កម្មសិក្សា',
+        route: '/report/student-internship',
+        icon: '',
+        svgIcon: 'pie-chart',
+        permissions: [pAdmin.report.adminDataApprovedCount]
       }
     ],
     permissions: []

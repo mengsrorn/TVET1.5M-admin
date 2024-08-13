@@ -111,11 +111,85 @@
         <ng-template #elseNull>{{'--//--'}}</ng-template>
       </ng-template>
 
-      <ng-template [appZippy]="'total_student_count'" let-element>
-        {{ element?.total_submit_student_count ||  0}}
+      <ng-template [appZippy]="'total_register'" let-element>
+        <div class="el-responsive text">
+          {{ element?.total_submit_student_count ||  0}}
+        </div>
       </ng-template>
-      <ng-template [appZippy]="'student_active_count'" let-element>
-        {{ element?.student_active_count ||  0}}
+      <ng-template [appZippy]="'total_register_female'" let-element>
+        <div class="el-responsive text">
+          {{ element?.total_submit_student_female_count ||  0}}
+        </div>
+      </ng-template>
+      <ng-template [appZippy]="'total_register_poorid'" let-element>
+        <div class="el-responsive text">
+          {{ element?.total_submit_poorid_student_count ||  0}}
+        </div>
+      </ng-template>
+      <ng-template [appZippy]="'total_register_poorid_female'" let-element>
+        <div class="el-responsive text">
+          {{ element?.total_submit_poorid_student_female_count ||  0}}
+        </div>
+      </ng-template>
+      <ng-template [appZippy]="'total_approve'" let-element>
+        <div class="el-responsive text">
+          {{ element?.total_student_active_count ||  0}}
+        </div>
+      </ng-template>
+      <ng-template [appZippy]="'total_approve_female'" let-element>
+        <div class="el-responsive text">
+          {{ element?.total_student_active_female_count ||  0}}
+        </div>
+      </ng-template>
+      <ng-template [appZippy]="'total_approve_poorid'" let-element>
+        <div class="el-responsive text">
+          {{ element?.total_student_active_poorid_count ||  0}}
+        </div>
+      </ng-template>
+      <ng-template [appZippy]="'total_approve_poorid_female'" let-element>
+        <div class="el-responsive text">
+          {{ element?.total_student_active_poorid_female_count ||  0}}
+        </div>
+      </ng-template>
+      <ng-template [appZippy]="'total_reject'" let-element>
+        <div class="el-responsive text">
+          {{ element?.total_student_reject_count ||  0}}
+        </div>
+      </ng-template>
+      <ng-template [appZippy]="'total_reject_female'" let-element>
+        <div class="el-responsive text">
+          {{ element?.total_student_reject_female_count ||  0}}
+        </div>
+      </ng-template>
+      <ng-template [appZippy]="'total_reject_poorid'" let-element>
+        <div class="el-responsive text">
+          {{ element?.total_student_reject_poorid_count ||  0}}
+        </div>
+      </ng-template>
+      <ng-template [appZippy]="'total_reject_poorid_female'" let-element>
+        <div class="el-responsive text">
+          {{ element?.total_student_reject_poorid_female_count ||  0}}
+        </div>
+      </ng-template>
+      <ng-template [appZippy]="'total_leave'" let-element>
+        <div class="el-responsive text">
+          {{ element?.total_student_leave_count ||  0}}
+        </div>
+      </ng-template>
+      <ng-template [appZippy]="'total_leave_female'" let-element>
+        <div class="el-responsive text">
+          {{ element?.total_student_leave_female_count ||  0}}
+        </div>
+      </ng-template>
+      <ng-template [appZippy]="'total_leave_poorid'" let-element>
+        <div class="el-responsive text">
+          {{ element?.total_student_leave_poorid_count ||  0}}
+        </div>
+      </ng-template>
+      <ng-template [appZippy]="'total_leave_poorid_female'" let-element>
+        <div class="el-responsive text">
+          {{ element?.total_student_leave_poorid_female_count ||  0}}
+        </div>
       </ng-template>
       <ng-template [appZippy]="'class_status'" let-element>
         <ng-container *ngIf="element?.course_start <= date && element?.course_end > date">

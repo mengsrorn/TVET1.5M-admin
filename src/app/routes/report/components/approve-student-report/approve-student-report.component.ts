@@ -93,7 +93,7 @@ export class ApproveStudentReportComponent implements OnInit {
       custom: true
     },
     {
-      name: 'វត្តមាន',
+      name: 'table.average_attendance',
       dataKey: 'average_attendance',
       custom: true
     },
@@ -110,6 +110,56 @@ export class ApproveStudentReportComponent implements OnInit {
     {
       name: 'table.course_code',
       dataKey: 'course_code',
+      custom: true
+    },
+    {
+      name: 'table.position',
+      dataKey: 'position',
+      custom: true
+    },
+    {
+      name: 'table.income',
+      dataKey: 'income',
+      custom: true
+    },
+    {
+      name: 'table.bonus',
+      dataKey: 'bonus',
+      custom: true
+    },
+    {
+      name: 'table.dormitory',
+      dataKey: 'dormitory',
+      custom: true
+    },
+    {
+      name: 'table.transportation',
+      dataKey: 'transportation',
+      custom: true
+    },
+    {
+      name: 'table.has_meal',
+      dataKey: 'has_meal',
+      custom: true
+    },
+    {
+      name: 'table.skill_matched',
+      dataKey: 'skill_matched',
+      custom: true
+    },
+    {
+      name: 'table.company_name',
+      dataKey: 'company_name',
+      custom: true
+    },
+    {
+      name: 'table.company_address',
+      dataKey: 'company_address',
+      custom: true
+    },
+    {
+      name: 'table.other',
+      dataKey: 'other',
       custom: true
     },
     {

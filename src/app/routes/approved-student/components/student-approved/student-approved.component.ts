@@ -11,6 +11,7 @@ import { Student } from 'src/app/models/student';
 import { TableColumn } from 'src/app/models/table-column';
 import { StudentService } from 'src/app/services/student.service';
 import { Pagination } from 'src/app/shares/pagination/pagination';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-student-approved',
@@ -120,5 +121,44 @@ export class StudentApprovedComponent {
 
   redirectIntern(){
     window.open('https://school-admin.tvet.gov.kh/scholarship/student','_blank');
+  }
+
+  onExportFile(): void {
+      //clone table from parent element
+      const table = document.getElementById('approved-scholarship-table')?.cloneNode(true) as HTMLElement;
+
+      //remove action columns
+      this.onCheckTable(table);
+  
+      const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(table);
+      const wb: XLSX.WorkBook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+  
+      /* save to file */
+      XLSX.writeFile(wb, 'file.xlsx');
+  }
+
+  onCheckTable(element: HTMLElement): void {
+    const table = element;
+
+    //remove th element -> class = mat-column-table-action from table element
+    //TODO: custom view when export to excel
+    let thRemove = table
+      .getElementsByTagName('thead')[0]
+      ?.getElementsByTagName('tr')[0]
+      ?.getElementsByClassName('mat-column-table-action');
+    for (let i = thRemove?.length - 1; i >= 0; i--) {
+      thRemove[i]?.remove();
+    }
+
+    //remove td element -> class = mat-column-table-action from table element
+    //TODO: custom view when export to excel
+    let tds = table.getElementsByTagName('tbody')[0]?.children;
+    for (let index = 0; index < tds?.length; index++) {
+      let tdRemove = tds[index]?.getElementsByClassName('mat-column-table-action');
+      for (let i = tdRemove?.length - 1; i >= 0; i--) {
+        tdRemove[i]?.remove();
+      }
+    }
   }
 }
