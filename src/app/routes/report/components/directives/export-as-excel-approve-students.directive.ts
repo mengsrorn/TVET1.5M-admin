@@ -133,8 +133,10 @@ export class ExportAsExcelApproveStudentsDirective extends Unsubscribe {
             : element?.student_occupations?.skill_matched === 2
             ? 'ប្រើតិចតួច'
             : 'មិនប្រើ',
+        [this.translateService.instant('table.company_name')]:
+          element?.student_occupations?.company_profile?.name,
         [this.translateService.instant('table.company_address')]:
-          element?.student_occupations?.company_profile?.address?.detail,
+          element?.student_occupations?.company_profile?.address?.company_address,
         [this.translateService.instant('table.other')]: element?.student_occupations?.other_info,
         [this.translateService.instant('table.status')]:
           this.enumStatus[element?.scholarship_status === -3 ? 'បដិសេធ' : element?.scholarship_status]
