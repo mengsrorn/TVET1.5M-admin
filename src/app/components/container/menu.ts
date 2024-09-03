@@ -248,6 +248,13 @@ export const MENU: MenuItem[] = [
         permissions: [pAdmin.report.adminDataApprovedCount]
       },
       {
+        title: 'ក្រុមគោលដៅតាមខេត្ត-ស្រុក',
+        route: '/report/statistics-by-city-province',
+        icon: '',
+        svgIcon: 'pie-chart',
+        permissions: [pAdmin.report.adminDataApprovedCount]
+      },
+      {
         title: 'កម្មសិក្សា',
         route: '/report/student-internship',
         icon: '',

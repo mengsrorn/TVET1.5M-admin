@@ -48,15 +48,43 @@ export class ExportAsExcelApproveStudentsDirective extends Unsubscribe {
     this.getApprovedList();
   }
 
-  getApprovedList() {
+  // getApprovedList() {
+  //   this.loadingService.setLoading('page', true);
+  //   this.reportService
+  //     .getApprovedList({ ...this.data.params, limit: 0, ...this.data?.filterParams })
+  //     .pipe(takeUntil(this.unsubscribe$))
+  //     .subscribe(res => {
+  //       this.loadingService.setLoading('page', false);
+  //       return this.xlsx(res.list);
+  //     });
+  // }
+
+  async getApprovedList() {
     this.loadingService.setLoading('page', true);
-    this.reportService
-      .getApprovedList({ ...this.data.params, limit: 0, ...this.data?.filterParams })
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(res => {
-        this.loadingService.setLoading('page', false);
-        return this.xlsx(res.list);
-      });
+
+    const limit = 10000;
+    let page = 1;
+    const allData = [];
+
+    while (true) {
+      const res = await this.reportService
+        .getApprovedList({ ...this.data.params, limit, page, ...this.data?.filterParams })
+        .pipe(takeUntil(this.unsubscribe$))
+        .toPromise();
+
+      allData.push(...res.list);
+
+      if (res.list.length < limit) {
+        // If the data fetched is less than the limit, we have reached the last page
+        break;
+      } else {
+        // Otherwise, fetch the next page
+        page++;
+      }
+    }
+
+    this.loadingService.setLoading('page', false);
+    this.xlsx(allData);
   }
 
   xlsx(list: StudentRequests[]) {
@@ -133,8 +161,7 @@ export class ExportAsExcelApproveStudentsDirective extends Unsubscribe {
             : element?.student_occupations?.skill_matched === 2
             ? 'ប្រើតិចតួច'
             : 'មិនប្រើ',
-        [this.translateService.instant('table.company_name')]:
-          element?.student_occupations?.company_profile?.name,
+        [this.translateService.instant('table.company_name')]: element?.student_occupations?.company_profile?.name,
         [this.translateService.instant('table.company_address')]:
           element?.student_occupations?.company_profile?.address?.company_address,
         [this.translateService.instant('table.other')]: element?.student_occupations?.other_info,
