@@ -52,6 +52,7 @@ import { ReportWeeklyComponent } from './components/report-weekly/report-weekly.
 import { PaginationModule } from '../../shares/pagination/pagination.module';
 import { ReportStudentInternshipComponent } from './components/report-student-internship/report-student-internship.component';
 import { ReportEnrollmentByCityProvinceComponent } from './components/report-enrollment-by-city-province/report-enrollment-by-city-province.component';
+import { ReportStatusBySchoolSectorMajorComponent } from './components/report-status-by-school-sector-major/report-status-by-school-sector-major.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { ReportEnrollmentByCityProvinceComponent } from './components/report-enr
     ReportCourseComponent,
     ReportWeeklyComponent,
     ReportStudentInternshipComponent,
-    ReportEnrollmentByCityProvinceComponent
+    ReportEnrollmentByCityProvinceComponent,
+    ReportStatusBySchoolSectorMajorComponent
   ],
   providers: [Base64ImagePipe, KhmerDatePipe],
   imports: [

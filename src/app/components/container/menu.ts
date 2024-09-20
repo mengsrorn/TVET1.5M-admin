@@ -241,6 +241,13 @@ export const MENU: MenuItem[] = [
         permissions: [pAdmin.report.adminDataApprovedCount]
       },
       {
+        title: 'ស្ថានភាពគ្រឹះ-វិស័យ-ជំនាញ',
+        route: '/report/status-by-school-sector-major',
+        icon: '',
+        svgIcon: 'pie-chart',
+        permissions: [pAdmin.report.adminDataApprovedCount]
+      },
+      {
         title: 'របាយការណ៍ប្រចាំសប្តាហ៍',
         route: '/report/weekly-report',
         icon: '',
@@ -260,7 +267,8 @@ export const MENU: MenuItem[] = [
         icon: '',
         svgIcon: 'pie-chart',
         permissions: [pAdmin.report.adminDataApprovedCount]
-      }
+      },
+      
     ],
     permissions: []
   },
