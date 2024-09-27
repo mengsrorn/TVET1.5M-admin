@@ -26,6 +26,7 @@ import { ScholarshipStatusPipe } from 'src/app/shares/status-pipe/pipes/scholars
 import { TableStatusPipe } from 'src/app/shares/status-pipe/pipes/table-status.pipe';
 import { TranslateStatusPipe } from 'src/app/shares/status-pipe/pipes/translate-status.pipe';
 import { VerifyStudentPipe } from 'src/app/shares/status-pipe/pipes/verify-student.pipe';
+import { AddressService } from '../../../../services/address.service';
 
 @Component({
   selector: 'app-filter',
@@ -42,7 +43,8 @@ export class FilterComponent {
     private schoolService: SchoolService,
     private ScholarshipStatusPipe: ScholarshipStatusPipe,
     private approvedStudentPipe: ApprovedStudentPipe,
-    private verifyStudentPipe: VerifyStudentPipe
+    private verifyStudentPipe: VerifyStudentPipe,
+    private addressService: AddressService
   ) {
     this.currentUrl = router.url;
   }
@@ -362,6 +364,52 @@ export class FilterComponent {
       labelFunc: 'filter.poor_id',
       translate: 'មានប័ណ្ណ',
       matIcon: 'pentagon'
+    },
+    {
+      title: 'student_study_status',
+      use: false,
+
+      data: [
+        {
+          value: null,
+          label: 'filter.all'
+        },
+        {
+          value: EnumConstant.ACTIVE,
+          label: 'enum_status.scholarship_status.active'
+        },
+        {
+          value: EnumConstant.REQUESTED,
+          label: 'enum_status.scholarship_status.requesting'
+        },
+        {
+          // the status 8 is equal to student finished study
+          value: EnumConstant.EXPIRED,
+          label: 'enum_status.scholarship_status.finish_study'
+        }
+      ],
+      paramKey: 'scholarship_status',
+      labelFunc: 'student_study_status',
+      translate: 'filter.scholarship_status',
+      matIcon: 'pentagon'
+    },
+    {
+      title: 'student_occupations',
+      use: false,
+      data: [
+        {
+          value: null,
+          label: 'filter.all'
+        },
+        {
+          value: 'student_occupations',
+          label: 'មានការងារ'
+        }
+      ],
+      paramKey: 'student_occupations',
+      labelFunc: 'student_occupations',
+      translate: 'filter.student_occupations',
+      matIcon: 'pentagon'
     }
   ];
   searchSubscription: Subscription;
@@ -369,6 +417,8 @@ export class FilterComponent {
 
   schoolOptions: any;
   selectedYear: any;
+  districtOptions: any;
+  communeOptions: any;
 
   ngOnInit(): void {
     this.renderFilter();
@@ -434,6 +484,11 @@ export class FilterComponent {
 
     this.params[filter.paramKey] = filter.value;
     this.queryFilter.emit(this.params);
+    if (func.paramKey === 'city_provinces') {
+      this.getDistricts(valueObj.value);
+    } else if (func.paramKey === 'districts') {
+      this.getCommune(valueObj.value);
+    }
   }
 
   countFilter(paramKey: useFilter, hasValue: boolean): void {
@@ -447,6 +502,9 @@ export class FilterComponent {
 
   reset(): void {
     this.filters.forEach(filter => {
+      if (filter.paramKey === 'districts' || filter.paramKey === 'communes') {
+        filter.data = [];
+      }
       filter.selectedValue = null;
     });
     this.selectedSubjects = [];
@@ -598,6 +656,57 @@ export class FilterComponent {
       filter.data = schoolList;
       this.schoolOptions = schoolList;
     });
+  }
+  getDistricts(city_id?: any) {
+    const filter = this.filters.find((item: any) => item.paramKey === 'districts');
+    if (city_id !== null) {
+      this.addressService.getDistrict(city_id || null).subscribe(res => {
+        let districtList = res.list as any as {
+          label: string;
+          value: number | string | null;
+        }[];
+        districtList = districtList.map((item: any) => ({
+          label: item.name || null,
+          value: item._id || null
+        }));
+        // Null Option
+        districtList.unshift({
+          label: 'filter.all',
+          value: null
+        });
+        filter.data = districtList;
+        this.districtOptions = districtList;
+      });
+    }
+    if (city_id === null) {
+      filter.data = [];
+      this.filterSet.delete('districts');
+    }
+  }
+  getCommune(district_id?: any) {
+    const filter = this.filters.find((item: any) => item.paramKey === 'communes');
+    if (district_id !== null) {
+      this.addressService.getCommune(district_id || null).subscribe(res => {
+        let communeList = res.list as any as {
+          label: string;
+          value: number | string | null;
+        }[];
+        communeList = communeList.map((item: any) => ({
+          label: item.name,
+          value: item._id
+        }));
+        communeList.unshift({
+          label: 'filter.all',
+          value: null
+        });
+        filter.data = communeList;
+        this.communeOptions = communeList;
+      });
+    }
+    if (district_id === null) {
+      filter.data = [];
+      this.filterSet.delete('communes');
+    }
   }
 
   remove(item: { value: string; label: string }, paramKey: useFilter): void {

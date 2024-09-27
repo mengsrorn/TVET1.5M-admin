@@ -48,4 +48,8 @@ export type useFilter =
   | 'schools'
   | 'month'
   | 'student_internships'
-  | 'poor_id';
+  | 'student_occupations'
+  | 'poor_id'
+  | 'scholarship_status'
+  | 'districts'
+  | 'communes';

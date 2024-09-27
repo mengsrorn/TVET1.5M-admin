@@ -66,7 +66,9 @@ export interface StudentRequests extends Student {
     company_profile?: {
       address?: {
         detail?: string;
+        company_address?:string;
       };
+      name?:string;
     };
     other_info?: string;
   };

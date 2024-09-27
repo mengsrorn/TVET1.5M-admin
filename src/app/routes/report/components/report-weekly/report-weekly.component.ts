@@ -63,7 +63,6 @@ export class ReportWeeklyComponent {
       .getWeeklyReport({ ...this.params, ...pagination, end_date: endDate })
       .pipe(
         map(map => {
-
           if (map?.report_data?.length > 0) {
             map.report_data.forEach((body, index) => {
               data.push({
@@ -87,8 +86,8 @@ export class ReportWeeklyComponent {
             for (let index = 0; index < map.header_columns?.length; index++) {
               let result = map.header_columns[index];
 
-              // Original 5 columns for each second header
-              for (let j = 0; j < 5; j++) {
+              // Original 6 columns for each second header
+              for (let j = 0; j < 6; j++) {
                 this.exportColumn.push('th' + index + j);
                 const dynamicColumnEntry = {
                   name: 'th' + index + j,
@@ -109,7 +108,6 @@ export class ReportWeeklyComponent {
               }
             }
           }
-
           return map;
         }),
         takeUntil(this.destroyer$)
@@ -117,6 +115,7 @@ export class ReportWeeklyComponent {
       .subscribe({
         next: res => {
           this.data = res;
+          
           this.tableDataSource = new MatTableDataSource(data);
           this.displayedColumns = [...this.baseColumn, ...this.exportColumn];
           this.thirdDisplayedColumn = [...this.baseColumn, ...this.thirdColumn];

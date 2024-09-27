@@ -134,7 +134,6 @@ export class ReportStatusByMajorComponent {
       )
       .subscribe({
         next: res => {
-          console.log(res);
 
           this.data = res;
           this.tableDataSource = new MatTableDataSource(data);

@@ -13,32 +13,29 @@ import { environment } from 'src/environments/environment';
 import * as XLSX from 'xlsx';
 
 @Component({
-  selector: 'app-report-status-by-school',
-  templateUrl: './report-status-by-school.component.html',
-  styleUrls: ['./report-status-by-school.component.scss']
+  selector: 'app-report-status-by-school-sector-major',
+  templateUrl: './report-status-by-school-sector-major.component.html',
+  styleUrls: ['./report-status-by-school-sector-major.component.scss']
 })
-export class ReportStatusBySchoolComponent {
+export class ReportStatusBySchoolSectorMajorComponent {
   private readonly destroyer$ = DESTROYER$();
-
   readonly loadingService = inject(LoadingService);
   private readonly reportService = inject(ReportService);
 
   date: Date = new Date();
-  // startDate: Date = new Date(this.date.getFullYear(), this.date.getMonth(), 1);
   endDate: Date = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0);
 
   form = inject(FormBuilder).group({
-    // start: [null, Validators.required],
     end: [null, Validators.required]
   });
 
   requestUrl: string = environment.api_url + this.reportService.path + '/student_apply_count';
 
-  baseColumn: string[] = ['position', 'province', 'institution'];
+  baseColumn: string[] = ['position', 'province', 'institution', 'sectors', 'apply_majors'];
   exportColumn: string[] = this.baseColumn;
   tableDataSource = new MatTableDataSource<ApplyCountBySchool>(null);
   displayedColumns: string[] = this.baseColumn;
-  baseTopColumn: string[] = ['#', 'រាជធានី/ខេត្ត', 'គ្រឹះស្ថានអប់រំបណ្ដុះបណ្ដាលបចេ្ចកទេស និងវិជ្ជាជីវៈ'];
+  baseTopColumn: string[] = ['#', 'រាជធានី/ខេត្ត', 'គ្រឹះស្ថាន អ.ប.វ.', 'វិស័យ', 'មុខជំនាញ'];
   topColumn: string[] = this.baseTopColumn;
   dynamicColumn: { _id: string; name: string }[];
 
@@ -53,34 +50,59 @@ export class ReportStatusBySchoolComponent {
   onLoad(): void {
     this.loadingService.setLoading('page', true);
     let data = [];
-    // let startDate: string = `${new Date(this.form.value.start).toLocaleDateString('en-ZA')} ${new Date(
-    //   this.form.value.start
-    // ).toLocaleTimeString('en-US', { hour12: false })}`;
 
     let endDate: string = `${new Date(this.form.value.end).toLocaleDateString('en-ZA')} ${new Date(
       this.form.value.end
     ).toLocaleTimeString('en-US', { hour12: false })}`;
 
     this.reportService
-      .getStatusBySchool({ ...this.filterParams, end_date: endDate }) //, start_date: startDate,
+      .getStatusBySchoolMajorSector({ ...this.filterParams, end_date: endDate })
       .pipe(
         map(map => {
           if (map?.report_data?.length > 0) {
+            //*mapping data table
             for (const body of map.report_data) {
               data.push({ ...body, province: true, colSpan: this.baseTopColumn?.length - 1 });
 
-              //mapping data table
-              for (const [index, item] of body?.schools.entries()) {
-                let dataHasSchool = data?.filter(fil => fil?.school);
-                data.push({
-                  ...item,
-                  school: true,
-                  index: dataHasSchool?.length > 0 ? dataHasSchool[dataHasSchool.length - 1]?.index + 1 : 1,
-                  colSpan: -1
-                });
+              if (body?.schools?.length > 0) {
+                //school mapping
+                for (const [index, item] of body?.schools.entries()) {
+                  let dataHasSchool = data?.filter(fil => fil?.school);
+                  data.push({
+                    ...item,
+                    school: true,
+                    index: dataHasSchool?.length > 0 ? dataHasSchool[dataHasSchool.length - 1]?.index + 1 : 1,
+                    colSpan: this.baseTopColumn?.length - 2
+                  });
+
+                  if (item?.sectors?.length > 0) {
+                    //sector mapping
+                    for (const sector of item?.sectors) {
+                      data.push({
+                        ...sector,
+                        sector: true,
+                        colSpan: this.baseTopColumn?.length - 3
+                      });
+
+                      if (sector?.apply_majors?.length > 0) {
+                        //apply_majors mapping
+                        for (const [j, apply_major] of sector?.apply_majors?.entries()) {
+                          data.push({
+                            ...apply_major,
+                            apply_major: true,
+                            colSpan: -1,
+                            rowSpan: sector?.apply_majors?.length,
+                            index: j + 1 //to rowSpan row of useless sector fields
+                          });
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
 
+            //total data at the bottom of the table
             data.push({
               index: 'សរុបរួម',
               school: true,
@@ -88,7 +110,7 @@ export class ReportStatusBySchoolComponent {
             });
           }
 
-          //columns management
+          //*columns management
           if (map?.header_columns?.length > 0) {
             //second header in table
             this.exportColumn = []; //assign to table
@@ -98,26 +120,6 @@ export class ReportStatusBySchoolComponent {
 
             //mapping second header
             for (let index = 0; index < map.header_columns?.length; index++) {
-              if (index === 15) {
-                for (let i = 0; i < 1; i++) {
-                  let result = map.header_columns[index];
-                  this.exportColumn.push('th_col' + index + i);
-                  this.dynamicColumn.push({
-                    name: 'th_col' + index + i,
-                    _id: result._id
-                  });
-                }
-              }
-              if (index === 17) {
-                for (let i = 0; i < 1; i++) {
-                  let result = map.header_columns[index];
-                  this.exportColumn.push('th_col' + index + i);
-                  this.dynamicColumn.push({
-                    name: 'th_col' + index + i,
-                    _id: result._id
-                  });
-                }
-              }
               for (let j = 0; j < 2; j++) {
                 let result = map.header_columns[index];
                 this.exportColumn.push('th' + index + j);
@@ -134,11 +136,11 @@ export class ReportStatusBySchoolComponent {
       )
       .subscribe({
         next: res => {
-          this.data = res;
+          console.log(res);
 
+          this.data = res;
           this.tableDataSource = new MatTableDataSource(data);
           this.displayedColumns = [...this.baseColumn, ...this.exportColumn];
-
           this.loadingService.setLoading('page', false);
 
           setTimeout(() => {
@@ -211,13 +213,10 @@ export class ReportStatusBySchoolComponent {
     let element = document.createElement('tr');
     table.getElementsByTagName('thead')[0].prepend(element);
 
-    // let startDate: string = `${new Date(this.form.value.start).toLocaleDateString('en-ZA')}, ${new Date(
-    //   this.form.value.start
-    // ).toLocaleTimeString('en-US', { hour12: false })}`;
-    let endDate: string = `${new Date(this.form.value.end).toLocaleDateString('en-ZA')}, ${new Date(
+    let startDate: string = `${new Date(this.form.value.end).toLocaleDateString('en-ZA')}, ${new Date(
       this.form.value.end
     ).toLocaleTimeString('en-US', { hour12: false })}`;
-    const title = `ស្ថានភាពសិក្សាតាមគ្រឹះស្ថានត្រឹមថ្ងៃ ${endDate}`; //ចាប់ពី ${startDate}
+    const title = `ចំនួនអនុម័តតាមរាជធានី-ខេត្ត, គ្រឹះស្ថាន អ.ប.វ., វិស័យ និងមុខជំនាញ ក្នុងថ្ងៃ ${startDate}`;
 
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(table);
 

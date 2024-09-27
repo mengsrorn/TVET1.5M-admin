@@ -445,7 +445,9 @@
     "student_occupations": "ស្ថានភាពការងារ",
     "internship": "កំពុងកម្មសិក្សា",
     "student_internships": "ស្ថានភាពកម្មសិក្សា",
-    "poor_id_status":"បណ្ណសមធម៌"
+    "poor_id_status":"បណ្ណសមធម៌",
+    "districts": "ស្រុក/ខណ្ឌ",
+    "communes": "ឃុំ/សង្កាត់"
   },
   "enum_status": {
     "Published": "កំពុងប្រើប្រាស់",

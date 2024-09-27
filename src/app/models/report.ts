@@ -66,7 +66,9 @@ export interface StudentWeeklyDataReport {
   total_student_not_poor: number;
   total_student_not_poor_female: number;
   total_student_not_poor_male: number;
+  total_student_general: number;
+  total_student_general_female: number;
+  total_student_general_male: number;
   name?: string;
   name_en?: string;
 }
-
