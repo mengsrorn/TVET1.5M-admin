@@ -5,7 +5,6 @@ import EnumConstant from 'src/app/models/enums/enumConstant';
   name: 'scholarshipStatus'
 })
 export class ScholarshipStatusPipe implements PipeTransform {
-
   transform(status: number): string {
     let statusString: string = '';
 
@@ -33,6 +32,12 @@ export class ScholarshipStatusPipe implements PipeTransform {
         break;
       case EnumConstant.QUIT_DURING_COURSE:
         statusString = 'scholarship_status.quit_during_course';
+        break;
+      case EnumConstant.QUIT_AFTER_COURSE:
+        statusString = 'scholarship_status.quit_after_course';
+        break;
+      case EnumConstant.QUIT_NOT_ENOGUH_DOC:
+        statusString = 'scholarship_status.quit_not_enough_doc';
         break;
       default:
         statusString = statusString;

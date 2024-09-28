@@ -481,7 +481,9 @@
       "reject": "បដិសេធ",
       "finish_study": "បញ្ចប់ការសិក្សា",
       "quit_before_course": "ចេញមុនរៀន",
-      "quit_during_course": "ចេញពេលរៀន"
+      "quit_during_course": "ចេញពេលរៀន",
+      "quit_after_course": "បោះបង់មុនពេលធ្វើតេស្តវាយតម្លៃ",
+      "quit_not_enough_doc": "បោះបង់ពេលរៀនខ្វះឯកសារ"
     }
   },
   "dialog": {
